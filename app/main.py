@@ -96,10 +96,12 @@ def raiz():
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Catastro Municipal - Alcaldía de Torbes</title>
+        <title>Catastro Municipal - SRCM API</title>
         <script src="https://cdn.tailwindcss.com"></script>
-        <!-- FontAwesome para librería de iconos completa -->
+        <!-- FontAwesome para iconos generales -->
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+        <!-- Devicon para logos de tecnologías -->
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" />
         <style>
             @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
             body { font-family: 'Inter', sans-serif; background-color: #f8fafc; }
@@ -111,123 +113,141 @@ def raiz():
     </head>
     <body class="text-slate-800 min-h-screen flex flex-col bg-pattern">
         
-        <!-- Header Institucional -->
-        <header class="bg-[#0f172a] text-white py-4 shadow-lg border-b-4 border-yellow-500 sticky top-0 z-50">
-            <div class="max-w-6xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4">
-                <div class="flex items-center gap-4">
-                    <div class="w-14 h-14 bg-white rounded-full flex items-center justify-center text-[#0f172a] text-2xl shadow-inner border-2 border-slate-200">
-                        <i class="fa-solid fa-building-columns"></i>
-                    </div>
-                    <div class="text-center md:text-left">
-                        <h2 class="text-xs font-semibold tracking-widest text-slate-400 uppercase mb-0.5">República Bolivariana de Venezuela</h2>
-                        <h1 class="text-xl font-bold tracking-tight">Alcaldía del Municipio Torbes</h1>
-                    </div>
-                </div>
-                <div class="hidden md:flex gap-4">
-                    <span class="px-3 py-1 bg-emerald-500/20 text-emerald-400 rounded-full text-sm font-semibold border border-emerald-500/30 flex items-center gap-2">
-                        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span> Sistema en línea
-                    </span>
-                </div>
-            </div>
-        </header>
-
         <!-- Main Content -->
-        <main class="flex-grow flex items-center justify-center p-4 md:p-8">
-            <div class="max-w-6xl w-full bg-white rounded-2xl shadow-xl overflow-hidden border border-slate-200">
+        <main class="flex-grow flex items-center justify-center p-4 md:p-8 mt-4 md:mt-8">
+            <div class="max-w-6xl w-full bg-white rounded-3xl shadow-2xl overflow-hidden border border-slate-200">
                 
                 <!-- Hero Banner -->
-                <div class="bg-gradient-to-br from-slate-50 to-slate-100 border-b border-slate-200 p-8 md:p-12 relative overflow-hidden flex flex-col md:flex-row items-center gap-8">
-                    <div class="absolute -right-10 -bottom-10 text-slate-200 opacity-30 text-[200px] pointer-events-none">
+                <div class="bg-gradient-to-br from-[#0f172a] to-blue-900 border-b border-slate-700 p-8 md:p-14 relative overflow-hidden flex flex-col md:flex-row items-center gap-10">
+                    <!-- Decoración geométrica -->
+                    <div class="absolute -right-20 -bottom-20 text-blue-500 opacity-10 text-[250px] pointer-events-none transform rotate-12">
                         <i class="fa-solid fa-map-marked-alt"></i>
                     </div>
                     
                     <div class="flex-shrink-0 relative z-10">
-                        <div class="w-28 h-28 rounded-3xl bg-blue-600 text-white flex items-center justify-center shadow-lg shadow-blue-600/30">
-                            <i class="fa-solid fa-satellite text-5xl"></i>
+                        <div class="w-32 h-32 rounded-3xl bg-blue-600/20 backdrop-blur-md text-blue-400 flex items-center justify-center shadow-2xl shadow-blue-900/50 border border-blue-500/30">
+                            <i class="fa-solid fa-satellite text-6xl"></i>
                         </div>
                     </div>
                     
                     <div class="relative z-10 text-center md:text-left">
-                        <div class="inline-block px-3 py-1 bg-blue-100 text-blue-700 font-semibold text-xs rounded-full mb-3 uppercase tracking-wider">
+                        <div class="inline-block px-4 py-1.5 bg-blue-500/20 text-blue-300 font-bold text-xs rounded-full mb-4 uppercase tracking-widest border border-blue-500/30">
                             API RESTful v2.5.0
                         </div>
-                        <h2 class="text-3xl md:text-4xl font-extrabold text-[#0f172a] mb-3 tracking-tight">Sistema de Registro Catastral Municipal</h2>
-                        <p class="text-slate-600 text-lg max-w-2xl">Plataforma central del motor catastral (SRCM). Gestiona propiedades, valida geometría topológica y emite documentación oficial automatizada.</p>
+                        <h2 class="text-3xl md:text-5xl font-extrabold text-white mb-4 tracking-tight">Sistema de Registro Catastral Municipal</h2>
+                        <p class="text-blue-100/80 text-lg max-w-3xl leading-relaxed">Plataforma central del motor catastral (SRCM). Gestiona propiedades, valida geometría topológica y emite documentación oficial automatizada para la Alcaldía del Municipio Torbes.</p>
                     </div>
                 </div>
 
-                <!-- Modulos del Sistema (Extraídos del README) -->
+                <!-- Modulos del Sistema -->
                 <div class="p-8 md:p-12">
                     <h3 class="text-xl font-bold text-slate-800 mb-6 flex items-center gap-2">
                         <i class="fa-solid fa-cubes text-blue-600"></i> Arquitectura y Módulos Activos
                     </h3>
                     
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
-                        
                         <!-- Módulo 1 -->
-                        <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition group">
-                            <div class="text-blue-600 mb-4 bg-blue-50 w-12 h-12 flex items-center justify-center rounded-lg group-hover:bg-blue-600 group-hover:text-white transition">
-                                <i class="fa-solid fa-layer-group text-xl"></i>
+                        <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm hover:shadow-xl transition-all duration-300 group hover:-translate-y-1">
+                            <div class="text-blue-600 mb-4 bg-blue-50 w-14 h-14 flex items-center justify-center rounded-xl group-hover:bg-blue-600 group-hover:text-white transition-colors">
+                                <i class="fa-solid fa-layer-group text-2xl"></i>
                             </div>
                             <h4 class="text-[#0f172a] font-bold mb-2">Motor Espacial (GIS)</h4>
-                            <p class="text-sm text-slate-600">PostgreSQL + PostGIS. Prevención de solapes mediante Triggers (ST_Intersects). Manejo de Polígonos GeoJSON y SRID 2201 (REGVEN).</p>
+                            <p class="text-sm text-slate-600 leading-relaxed">PostgreSQL + PostGIS. Prevención de solapes mediante Triggers (ST_Intersects). Manejo de Polígonos GeoJSON y SRID 2201 (REGVEN).</p>
                         </div>
 
                         <!-- Módulo 2 -->
-                        <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition group">
-                            <div class="text-emerald-600 mb-4 bg-emerald-50 w-12 h-12 flex items-center justify-center rounded-lg group-hover:bg-emerald-600 group-hover:text-white transition">
-                                <i class="fa-solid fa-file-pdf text-xl"></i>
+                        <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm hover:shadow-xl transition-all duration-300 group hover:-translate-y-1">
+                            <div class="text-emerald-600 mb-4 bg-emerald-50 w-14 h-14 flex items-center justify-center rounded-xl group-hover:bg-emerald-600 group-hover:text-white transition-colors">
+                                <i class="fa-solid fa-file-pdf text-2xl"></i>
                             </div>
                             <h4 class="text-[#0f172a] font-bold mb-2">Cédulas Catastrales</h4>
-                            <p class="text-sm text-slate-600">Generación automática de PDFs de la Cédula Catastral, cálculo de avalúos y generación de Códigos QR para verificación.</p>
+                            <p class="text-sm text-slate-600 leading-relaxed">Generación automática de PDFs de la Cédula Catastral, cálculo de avalúos y generación de Códigos QR para verificación.</p>
                         </div>
 
                         <!-- Módulo 3 -->
-                        <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition group">
-                            <div class="text-purple-600 mb-4 bg-purple-50 w-12 h-12 flex items-center justify-center rounded-lg group-hover:bg-purple-600 group-hover:text-white transition">
-                                <i class="fa-solid fa-user-shield text-xl"></i>
+                        <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm hover:shadow-xl transition-all duration-300 group hover:-translate-y-1">
+                            <div class="text-purple-600 mb-4 bg-purple-50 w-14 h-14 flex items-center justify-center rounded-xl group-hover:bg-purple-600 group-hover:text-white transition-colors">
+                                <i class="fa-solid fa-user-shield text-2xl"></i>
                             </div>
                             <h4 class="text-[#0f172a] font-bold mb-2">Auth & Supabase</h4>
-                            <p class="text-sm text-slate-600">Autenticación Stateless delegada a Supabase Auth. Validación rigurosa de firmas JWT (Algoritmo ES256) y RBAC.</p>
+                            <p class="text-sm text-slate-600 leading-relaxed">Autenticación Stateless delegada a Supabase Auth. Validación rigurosa de firmas JWT (Algoritmo ES256) y RBAC.</p>
                         </div>
 
                         <!-- Módulo 4 -->
-                        <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition group">
-                            <div class="text-amber-600 mb-4 bg-amber-50 w-12 h-12 flex items-center justify-center rounded-lg group-hover:bg-amber-600 group-hover:text-white transition">
-                                <i class="fa-solid fa-vial-circle-check text-xl"></i>
+                        <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm hover:shadow-xl transition-all duration-300 group hover:-translate-y-1">
+                            <div class="text-amber-600 mb-4 bg-amber-50 w-14 h-14 flex items-center justify-center rounded-xl group-hover:bg-amber-600 group-hover:text-white transition-colors">
+                                <i class="fa-solid fa-vial-circle-check text-2xl"></i>
                             </div>
                             <h4 class="text-[#0f172a] font-bold mb-2">Calidad de Software</h4>
-                            <p class="text-sm text-slate-600">Validado al 100%. Suite E2E y Pruebas Unitarias. Validaciones estrictas Pydantic v2 sobre 35 Endpoints aislados.</p>
+                            <p class="text-sm text-slate-600 leading-relaxed">Validado al 100%. Suite E2E y Pruebas Unitarias. Validaciones estrictas Pydantic v2 sobre 35 Endpoints aislados.</p>
                         </div>
                     </div>
 
                     <!-- Botón de Acceso -->
-                    <div class="bg-slate-900 rounded-2xl p-8 md:p-10 flex flex-col md:flex-row items-center justify-between gap-6 shadow-2xl relative overflow-hidden">
-                        <!-- BG elements -->
-                        <div class="absolute right-0 top-0 w-64 h-64 bg-blue-600/10 rounded-full blur-3xl"></div>
-                        
+                    <div class="bg-slate-50 border border-slate-200 rounded-2xl p-8 md:p-10 flex flex-col md:flex-row items-center justify-between gap-6 relative overflow-hidden mb-12">
                         <div class="relative z-10 text-center md:text-left max-w-2xl">
-                            <h3 class="text-2xl font-bold text-white mb-2">Portal para Desarrolladores</h3>
-                            <p class="text-slate-400 mb-0">Accede a la especificación OpenAPI (Swagger UI). Podrás interactuar con los endpoints, leer los esquemas de la Base de Datos e inyectar tokens para pruebas de concepto.</p>
+                            <h3 class="text-2xl font-bold text-[#0f172a] mb-2">Portal para Desarrolladores</h3>
+                            <p class="text-slate-600 mb-0">Accede a la especificación OpenAPI (Swagger UI). Podrás interactuar con los endpoints, leer los esquemas de la Base de Datos e inyectar tokens para pruebas de concepto.</p>
                         </div>
                         <div class="relative z-10 flex-shrink-0">
-                            <a href="/docs" class="inline-flex items-center justify-center gap-3 px-8 py-4 bg-blue-600 hover:bg-blue-500 text-white text-lg font-bold rounded-xl shadow-lg shadow-blue-900/50 transition-all duration-200 hover:-translate-y-1">
+                            <a href="/docs" class="inline-flex items-center justify-center gap-3 px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white text-lg font-bold rounded-xl shadow-lg shadow-blue-600/30 transition-all duration-200 hover:-translate-y-1">
                                 <i class="fa-solid fa-code"></i>
                                 Abrir Swagger UI
                             </a>
                         </div>
                     </div>
+
+                    <!-- Stack Tecnológico -->
+                    <div class="border-t border-slate-100 pt-10 text-center">
+                        <h4 class="text-sm font-bold text-slate-400 uppercase tracking-widest mb-8">Stack Tecnológico y Herramientas</h4>
+                        <div class="flex flex-wrap justify-center items-center gap-8 md:gap-12 opacity-80 hover:opacity-100 transition-opacity">
+                            
+                            <div class="flex flex-col items-center gap-2 group cursor-default">
+                                <i class="devicon-python-plain colored text-5xl group-hover:scale-110 transition-transform"></i>
+                                <span class="text-xs font-semibold text-slate-500">Python 3.12</span>
+                            </div>
+
+                            <div class="flex flex-col items-center gap-2 group cursor-default">
+                                <i class="devicon-fastapi-plain colored text-5xl group-hover:scale-110 transition-transform"></i>
+                                <span class="text-xs font-semibold text-slate-500">FastAPI</span>
+                            </div>
+
+                            <div class="flex flex-col items-center gap-2 group cursor-default">
+                                <i class="devicon-postgresql-plain colored text-5xl group-hover:scale-110 transition-transform"></i>
+                                <span class="text-xs font-semibold text-slate-500">PostgreSQL</span>
+                            </div>
+
+                            <div class="flex flex-col items-center gap-2 group cursor-default text-blue-800">
+                                <i class="devicon-postgis-plain text-5xl group-hover:scale-110 transition-transform" style="color: #4F80B0;"></i>
+                                <span class="text-xs font-semibold text-slate-500">PostGIS</span>
+                            </div>
+
+                            <div class="flex flex-col items-center gap-2 group cursor-default">
+                                <i class="devicon-supabase-plain colored text-5xl group-hover:scale-110 transition-transform"></i>
+                                <span class="text-xs font-semibold text-slate-500">Supabase</span>
+                            </div>
+
+                            <div class="flex flex-col items-center gap-2 group cursor-default">
+                                <i class="devicon-pytest-plain colored text-5xl group-hover:scale-110 transition-transform"></i>
+                                <span class="text-xs font-semibold text-slate-500">Pytest</span>
+                            </div>
+
+                            <div class="flex flex-col items-center gap-2 group cursor-default">
+                                <i class="devicon-sqlalchemy-plain colored text-5xl group-hover:scale-110 transition-transform"></i>
+                                <span class="text-xs font-semibold text-slate-500">SQLAlchemy</span>
+                            </div>
+
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </main>
 
         <!-- Footer -->
-        <footer class="bg-white border-t border-slate-200 py-6 mt-auto">
-            <div class="max-w-6xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center text-sm text-slate-500">
-                <p class="font-medium text-slate-700 mb-2 md:mb-0">SRCM &bull; Dirección de Catastro Municipal</p>
-                <div class="flex items-center gap-4">
-                    <p>&copy; 2026 Alcaldía del Municipio Torbes. Todos los derechos reservados.</p>
-                </div>
+        <footer class="py-6 mt-auto">
+            <div class="max-w-6xl mx-auto px-6 text-center text-sm text-slate-500 font-medium">
+                <p>&copy; 2026 Alcaldía del Municipio Torbes. Dirección de Catastro. Todos los derechos reservados.</p>
             </div>
         </footer>
     </body>
