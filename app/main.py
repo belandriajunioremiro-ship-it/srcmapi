@@ -122,24 +122,8 @@ def raiz():
         <main class="flex-grow flex flex-col items-center p-4 md:p-8 mt-4 md:mt-8 w-full">
             
             <!-- Hero Banner -->
-            <div class="max-w-[1400px] w-full bg-gradient-to-br from-[#0f172a] to-blue-900 rounded-3xl shadow-2xl p-8 md:p-14 relative overflow-hidden flex flex-col items-center text-center mb-12 border border-slate-800">
-                <!-- Decoración geométrica -->
-                <div class="absolute -right-10 -bottom-10 text-blue-500 opacity-10 text-[250px] pointer-events-none transform rotate-12">
-                    <i class="fa-solid fa-map-marked-alt"></i>
-                </div>
-                
-                <div class="relative z-10">
-                    <div class="inline-block px-4 py-1.5 bg-blue-500/20 text-blue-300 font-bold text-xs rounded-full mb-6 uppercase tracking-widest border border-blue-500/30">
-                        API RESTful v2.5.0
-                    </div>
-                    <h2 class="text-3xl md:text-5xl font-extrabold text-white mb-6 tracking-tight flex flex-col md:flex-row items-center justify-center gap-4">
-                        <span class="w-16 h-16 rounded-2xl bg-blue-600 flex items-center justify-center shadow-lg shadow-blue-500/30 text-white text-3xl">
-                            <i class="fa-solid fa-location-crosshairs"></i>
-                        </span>
-                        Sistema de Registro Catastral Municipal
-                    </h2>
-                    <p class="text-blue-100/80 text-lg max-w-3xl leading-relaxed mx-auto">Plataforma central del motor catastral (SRCM). Gestiona propiedades, valida geometría topológica y emite documentación oficial automatizada para la Alcaldía del Municipio Torbes.</p>
-                </div>
+            <div class="max-w-[1400px] w-full mb-12 flex justify-center">
+                <img src="/static/logos/bannerarriba.jpg" alt="Sistema de Registro Catastral Municipal" class="w-full h-auto rounded-3xl shadow-lg object-contain">
             </div>
 
             <div class="max-w-[1400px] w-full">
@@ -202,71 +186,8 @@ def raiz():
                     </div>
 
                     <!-- Stack Tecnológico -->
-                    <div class="pt-10 pb-16 text-center border-t border-slate-200/60">
-                        <h4 class="text-sm font-bold text-slate-400 uppercase tracking-widest mb-12">Stack Tecnológico y Herramientas</h4>
-                        <div class="flex flex-wrap justify-center items-end gap-10 md:gap-16 opacity-90 hover:opacity-100 transition-opacity">
-                            
-                            <div class="flex flex-col items-center gap-4 group cursor-default">
-                                <img src="/static/logos/fastapi.png" alt="FastAPI" class="h-16 w-auto max-w-[140px] object-contain group-hover:scale-110 transition-transform mix-blend-multiply">
-                                <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider">FastAPI</span>
-                            </div>
-
-                            <div class="flex flex-col items-center gap-4 group cursor-default">
-                                <img src="/static/logos/PostgreSQL-Logo.png" alt="PostgreSQL" class="h-16 w-auto max-w-[140px] object-contain group-hover:scale-110 transition-transform mix-blend-multiply">
-                                <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider">PostgreSQL</span>
-                            </div>
-
-                            <div class="flex flex-col items-center gap-4 group cursor-default">
-                                <img src="/static/logos/posgist.jpg" alt="PostGIS" class="h-16 w-auto max-w-[140px] object-contain group-hover:scale-110 transition-transform mix-blend-multiply">
-                                <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider">PostGIS</span>
-                            </div>
-
-                            <div class="flex flex-col items-center gap-4 group cursor-default">
-                                <img src="/static/logos/supabase.webp" alt="Supabase" class="h-16 w-auto max-w-[140px] object-contain group-hover:scale-110 transition-transform mix-blend-multiply">
-                                <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Supabase</span>
-                            </div>
-
-                            <div class="flex flex-col items-center gap-4 group cursor-default">
-                                <img src="/static/logos/Pydantic.png" alt="Pydantic" class="h-16 w-auto max-w-[140px] object-contain group-hover:scale-110 transition-transform mix-blend-multiply">
-                                <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Pydantic</span>
-                            </div>
-
-                            <div class="flex flex-col items-center gap-4 group cursor-default">
-                                <img src="/static/logos/SQLAlchemy.jpg" alt="SQLAlchemy" class="h-16 w-auto max-w-[140px] object-contain group-hover:scale-110 transition-transform mix-blend-multiply">
-                                <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider">SQLAlchemy</span>
-                            </div>
-
-                            <div class="flex flex-col items-center gap-4 group cursor-default">
-                                <img src="/static/logos/Psycopg2.png" alt="Psycopg2" class="h-16 w-auto max-w-[140px] object-contain group-hover:scale-110 transition-transform mix-blend-multiply">
-                                <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Psycopg2</span>
-                            </div>
-
-                            <div class="flex flex-col items-center gap-4 group cursor-default">
-                                <img src="/static/logos/ReportLab.avif" alt="ReportLab" class="h-16 w-auto max-w-[140px] object-contain group-hover:scale-110 transition-transform mix-blend-multiply">
-                                <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider">ReportLab</span>
-                            </div>
-
-                            <div class="flex flex-col items-center gap-4 group cursor-default">
-                                <img src="/static/logos/geopandas.png" alt="GeoPandas" class="h-16 w-auto max-w-[140px] object-contain group-hover:scale-110 transition-transform mix-blend-multiply">
-                                <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider">GeoPandas</span>
-                            </div>
-
-                            <div class="flex flex-col items-center gap-4 group cursor-default">
-                                <img src="/static/logos/PyJWT.jpg" alt="PyJWT" class="h-16 w-auto max-w-[140px] object-contain group-hover:scale-110 transition-transform mix-blend-multiply">
-                                <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider">PyJWT</span>
-                            </div>
-                            
-                            <div class="flex flex-col items-center gap-4 group cursor-default">
-                                <img src="/static/logos/Qrcode.jpg" alt="QR Code" class="h-16 w-auto max-w-[140px] object-contain group-hover:scale-110 transition-transform mix-blend-multiply">
-                                <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider">QRCode</span>
-                            </div>
-
-                            <div class="flex flex-col items-center gap-4 group cursor-default">
-                                <img src="/static/logos/pytest.png" alt="Pytest" class="h-16 w-auto max-w-[140px] object-contain group-hover:scale-110 transition-transform mix-blend-multiply">
-                                <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Pytest</span>
-                            </div>
-
-                        </div>
+                    <div class="pt-10 pb-16 text-center border-t border-slate-200/60 flex justify-center">
+                        <img src="/static/logos/bannerabajo.jpg" alt="Stack Tecnológico" class="w-full max-w-[1200px] h-auto object-contain">
                     </div>
 
                 </div>
