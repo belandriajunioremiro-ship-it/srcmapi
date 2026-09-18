@@ -123,24 +123,23 @@ def raiz():
             <div class="max-w-6xl w-full bg-white rounded-3xl shadow-2xl overflow-hidden border border-slate-200">
                 
                 <!-- Hero Banner -->
-                <div class="bg-gradient-to-br from-[#0f172a] to-blue-900 border-b border-slate-700 p-8 md:p-14 relative overflow-hidden flex flex-col md:flex-row items-center gap-10">
+                <div class="bg-gradient-to-br from-[#0f172a] to-blue-900 border-b border-slate-700 p-8 md:p-14 relative overflow-hidden flex flex-col items-center text-center">
                     <!-- Decoración geométrica -->
-                    <div class="absolute -right-20 -bottom-20 text-blue-500 opacity-10 text-[250px] pointer-events-none transform rotate-12">
+                    <div class="absolute -right-10 -bottom-10 text-blue-500 opacity-10 text-[250px] pointer-events-none transform rotate-12">
                         <i class="fa-solid fa-map-marked-alt"></i>
                     </div>
                     
-                    <div class="flex-shrink-0 relative z-10">
-                        <div class="w-32 h-32 rounded-3xl bg-white flex items-center justify-center shadow-2xl shadow-blue-900/50 border border-blue-500/30 p-3">
-                            <img src="/static/logos/logoalcaldia.png" alt="Alcaldía de Torbes" class="w-full h-full object-contain">
-                        </div>
-                    </div>
-                    
-                    <div class="relative z-10 text-center md:text-left">
-                        <div class="inline-block px-4 py-1.5 bg-blue-500/20 text-blue-300 font-bold text-xs rounded-full mb-4 uppercase tracking-widest border border-blue-500/30">
+                    <div class="relative z-10">
+                        <div class="inline-block px-4 py-1.5 bg-blue-500/20 text-blue-300 font-bold text-xs rounded-full mb-6 uppercase tracking-widest border border-blue-500/30">
                             API RESTful v2.5.0
                         </div>
-                        <h2 class="text-3xl md:text-5xl font-extrabold text-white mb-4 tracking-tight">Sistema de Registro Catastral Municipal</h2>
-                        <p class="text-blue-100/80 text-lg max-w-3xl leading-relaxed">Plataforma central del motor catastral (SRCM). Gestiona propiedades, valida geometría topológica y emite documentación oficial automatizada para la Alcaldía del Municipio Torbes.</p>
+                        <h2 class="text-3xl md:text-5xl font-extrabold text-white mb-6 tracking-tight flex flex-col md:flex-row items-center justify-center gap-4">
+                            <span class="w-16 h-16 rounded-2xl bg-blue-600 flex items-center justify-center shadow-lg shadow-blue-500/30 text-white text-3xl">
+                                <i class="fa-solid fa-location-crosshairs"></i>
+                            </span>
+                            Sistema de Registro Catastral Municipal
+                        </h2>
+                        <p class="text-blue-100/80 text-lg max-w-3xl leading-relaxed mx-auto">Plataforma central del motor catastral (SRCM). Gestiona propiedades, valida geometría topológica y emite documentación oficial automatizada para la Alcaldía del Municipio Torbes.</p>
                     </div>
                 </div>
 
