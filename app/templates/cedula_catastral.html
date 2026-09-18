@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Cédula Catastral - Municipio Torbes</title>
+<style>
+    @page {
+        size: Letter;
+        margin: 0.5cm 0.8cm;
+        @bottom-center {
+            content: "Página " counter(page) " de " counter(pages);
+            font-size: 7px;
+            color: #888;
+        }
+    }
+    @page :first {
+        margin-top: 0.4cm;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+        font-family: "Arial", sans-serif;
+        font-size: 9.5px;
+        color: #000;
+        line-height: 1.35;
+        overflow: visible;
+    }
+
+    .ribbon-corner {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 140px;
+        height: 140px;
+        z-index: 100;
+        border-bottom-right-radius: 100%;
+        background: radial-gradient(circle at top left, 
+            #FCD116 0%, #FCD116 42%, 
+            #00247D 42%, #00247D 71%, 
+            #CE1126 71%, #CE1126 100%);
+    }
+
+    .ribbon-corner-br {
+        position: fixed;
+        bottom: 0;
+        right: 0;
+        width: 140px;
+        height: 140px;
+        z-index: 100;
+        border-top-left-radius: 100%;
+        background: radial-gradient(circle at bottom right, 
+            #CE1126 0%, #CE1126 42%, 
+            #00247D 42%, #00247D 71%, 
+            #FCD116 71%, #FCD116 100%);
+    }
+
+    .watermark {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        width: 500px;
+        height: 500px;
+        transform: translate(-50%, -50%);
+        z-index: 0;
+        opacity: 0.10;
+    }
+    .watermark img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+    }
+
+    .content {
+        position: relative;
+        z-index: 1;
+    }
+
+    .header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 10px;
+        margin-bottom: 4px;
+    }
+    .emblem {
+        width: 70px;
+        height: 70px;
+        object-fit: contain;
+    }
+    .header-center {
+        text-align: center;
+        flex: 1;
+    }
+    .header-center p { margin: 0; }
+    .hc-1 { font-size: 11px; }
+    .hc-2 { font-size: 11px; }
+    .hc-3 {
+        font-size: 13px;
+        font-weight: bold;
+        color: #CE1126;
+        text-transform: uppercase;
+        margin: 2px 0;
+    }
+    .hc-4 { font-size: 9px; }
+    .hc-5 {
+        font-size: 10px;
+        font-weight: bold;
+        font-style: italic;
+        color: #CE1126;
+    }
+
+    .inst-info {
+        text-align: center;
+        font-size: 8px;
+        color: #444;
+        margin-bottom: 4px;
+        line-height: 1.4;
+    }
+
+    .cert-title {
+        text-align: center;
+        font-weight: bold;
+        font-size: 16px;
+        text-transform: uppercase;
+        color: #1a1a6e;
+        margin: 4px 0 6px 0;
+        letter-spacing: 2px;
+    }
+
+    .cert-body {
+        font-size: 10.5px;
+        text-align: justify;
+        line-height: 1.45;
+        margin-bottom: 4px;
+        padding: 0 4px;
+    }
+    .cert-body p { margin-bottom: 6px; }
+
+    .cert-linderos {
+        margin: 4px 0;
+        padding: 4px 0;
+    }
+    .cert-linderos-title {
+        font-weight: bold;
+        font-size: 10.5px;
+        text-transform: uppercase;
+        margin-bottom: 4px;
+        color: #1a1a6e;
+    }
+    .cert-lin-row {
+        display: flex;
+        padding: 2px 0;
+        font-size: 10.5px;
+    }
+    .cert-lin-dir {
+        width: 70px;
+        font-weight: bold;
+        text-transform: uppercase;
+        color: #333;
+    }
+    .cert-lin-desc { flex: 1; }
+    .cert-lin-mts {
+        width: 100px;
+        text-align: right;
+        font-weight: bold;
+    }
+
+    .cert-disclaimer {
+        margin: 6px 0;
+        padding: 5px 8px;
+        border: 1px solid #CE1126;
+        border-radius: 4px;
+        background: #fff8f8;
+        font-size: 8.5px;
+        text-align: justify;
+        line-height: 1.4;
+        color: #333;
+    }
+    .cert-disclaimer strong { color: #CE1126; }
+
+    .cert-fecha {
+        text-align: center;
+        font-size: 9px;
+        margin: 6px 0;
+        font-style: italic;
+    }
+
+    .sigs {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 4px;
+        gap: 15px;
+    }
+    .sig {
+        width: 45%;
+        text-align: center;
+    }
+    .sig-line {
+        border-top: 0.5px solid #000;
+        margin-top: 14px;
+        padding-top: 2px;
+    }
+    .sig-name { font-weight: bold; font-size: 9px; }
+    .sig-role { font-size: 7.5px; }
+    .sig-ref { font-size: 7px; font-style: italic; }
+
+    .foot-bar {
+        margin-top: 2px;
+        text-align: center;
+        font-size: 6.5px;
+        color: #666;
+        padding: 1px;
+    }
+    .foot-logo {
+        text-align: center;
+        margin-top: 1px;
+    }
+    .foot-logo img {
+        height: 30px;
+        object-fit: contain;
+    }
+
+    .page-break {
+        page-break-before: always;
+    }
+
+    .upper-block {
+        display: flex;
+        justify-content: space-between;
+        align-items: stretch;
+        margin-bottom: 6px;
+    }
+    .doc-type {
+        border: none;
+        width: 30%;
+        padding: 6px 4px;
+        text-align: center;
+        background: #fff;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+    .doc-type .dt1 {
+        font-size: 10px;
+        font-weight: bold;
+        text-transform: uppercase;
+    }
+    .doc-type .dt2 {
+        font-size: 8px;
+        text-transform: uppercase;
+    }
+
+    .code-box {
+        width: 50%;
+        border: 1px solid #aaa;
+        border-collapse: separate;
+        border-spacing: 0;
+        border-radius: 4px;
+        overflow: hidden;
+    }
+    .code-box th,
+    .code-box td {
+        border: 0.5px solid #ccc;
+        text-align: center;
+        padding: 3px 4px;
+        font-size: 8.5px;
+    }
+    .code-box th {
+        background: #f0f0f0;
+        font-weight: bold;
+    }
+    .code-box .cb-title {
+        background: #d9d9d9;
+        font-size: 9.5px;
+    }
+    .code-box td {
+        font-weight: bold;
+        font-size: 9px;
+    }
+    .code-box .cb-exp {
+        text-align: left;
+        font-weight: normal;
+        font-size: 8px;
+    }
+
+    .receipt-bar {
+        border: 0.5px solid #aaa;
+        padding: 4px 8px;
+        font-size: 8px;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        margin-bottom: 6px;
+        background: #e0e0e0;
+        gap: 10px;
+        border-radius: 4px;
+    }
+
+    table.f {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0;
+        margin-bottom: 4px;
+        border: 0.5px solid #aaa;
+        border-radius: 4px;
+        overflow: hidden;
+    }
+    table.f td {
+        border: 0.5px solid #ccc;
+        padding: 3px 5px;
+        vertical-align: middle;
+        font-size: 8.5px;
+    }
+    .sh {
+        background: #e0e0e0;
+        font-weight: bold;
+        text-transform: uppercase;
+        text-align: center;
+        font-size: 8.5px;
+    }
+    .fl { font-style: italic; }
+    .fv { font-weight: bold; }
+    .tr {
+        font-weight: bold;
+        background: #e0e0e0;
+        text-align: right;
+    }
+    .val-total {
+        background: #f0f0f0;
+        font-weight: bold;
+        text-align: right;
+        font-size: 8px;
+        vertical-align: middle;
+    }
+
+    .notes-section {
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+        margin-top: 6px;
+    }
+    .notes {
+        flex: 1;
+        font-size: 8.5px;
+        line-height: 1.4;
+        text-align: justify;
+    }
+    .notes p { margin: 1.5px 0; }
+    .notes-qr {
+        width: 110px;
+        flex-shrink: 0;
+        text-align: center;
+    }
+    .notes-qr img {
+        width: 100px;
+        height: 100px;
+        border: 1px solid #ccc;
+        padding: 3px;
+        background: #fff;
+        border-radius: 4px;
+    }
+    .notes-qr span {
+        display: block;
+        font-size: 5.5px;
+        color: #666;
+        margin-top: 2px;
+    }
+
+    .vigencia-stamp {
+        display: inline-block;
+        border: 2px solid #CE1126;
+        color: #CE1126;
+        font-weight: bold;
+        font-size: 9px;
+        padding: 2px 8px;
+        border-radius: 4px;
+        text-transform: uppercase;
+    }
+</style>
+</head>
+<body>
+
+<!-- MARCA DE AGUA -->
+<div class="watermark">
+    <img src="{{ logos }}/escudovenezuela.png" alt="">
+</div>
+
+<!-- ============================================================ -->
+<!-- PÁGINA 1: CERTIFICACIÓN FORMAL                               -->
+<!-- ============================================================ -->
+<div class="content">
+
+<!-- ENCABEZADO -->
+<div class="header">
+    <img class="emblem" src="{{ logos }}/escudotachira.png" alt="Táchira">
+    <div class="header-center">
+        <p class="hc-1">República Bolivariana de Venezuela</p>
+        <p class="hc-2">Estado {{ d.nombre_estado }}</p>
+        <p class="hc-3">ALCALDÍA BOLIVARIANA DEL MUNICIPIO {{ d.nombre_municipio|upper }}</p>
+        <p class="hc-4">RIF. {{ d.rif_alcaldia }}</p>
+        <p class="hc-5">DIRECCIÓN DE URBANISMO Y CATASTRO</p>
+    </div>
+    <img class="emblem" src="{{ logos }}/escudotorbes.png" alt="Torbes">
+</div>
+
+<!-- DIRECCIÓN Y TELÉFONOS - SIN BORDES -->
+<div class="inst-info">
+    Dirección: {{ d.direccion_institucional or "Municipio Torbes, San Josecito, Vía al Llano, Troncal 5" }}<br>
+    Teléfonos: 0426/5755511 — 0426/1709156 — (0276) 517.28.66
+</div>
+
+<!-- TÍTULO PRINCIPAL -->
+<div class="cert-title">Cédula Catastral</div>
+
+<!-- CUERPO DE LA CERTIFICACIÓN -->
+<div class="cert-body">
+    <p>Quien suscribe, Director(a) de Urbanismo y Catastro de la Alcaldía Bolivariana del Municipio Torbes, en uso de sus atribuciones legales y ordenanzas vigentes, expide la presente <strong>Cédula Catastral</strong> y hace constar por medio de este documento oficial que el inmueble, cuyos datos técnicos, linderos y valoraciones se detallan en la página siguiente, se encuentra debidamente empadronado e inscrito en el Archivo Catastral de este Municipio a favor del ciudadano(a) <strong>{{ d.propietario_nombre or "—" }}</strong>, portador(a) del documento de identidad <strong>{{ d.cedula_rif or "—" }}</strong>.</p>
+
+    <p>La División de Catastro de la Alcaldía del Municipio Torbes y en concordancia con lo indicado en la Ley de Geografía, Cartografía y Catastro Nacional, certifica que el ciudadano(a) <strong>{{ d.propietario_nombre or "—" }}</strong>, con Cédula de Identidad C.I/RIF: <strong>{{ d.cedula_rif or "—" }}</strong>, posee un inmueble ubicado en: <strong>{{ d.direccion or "—" }}</strong>. El mismo se encuentra inserto en esta División de Catastro.</p>
+
+    <p>Con un <strong>ÁREA DE TERRENO: {{ d.area_terreno_m2|fmt_area }} M²</strong>. <strong>ÁREA DE CONSTRUCCIÓN (USO {{ (d.descripcion_uso or "RESIDENCIAL")|upper }}): {{ d.area_construccion_m2|fmt_area }} M²</strong>. <strong>ÁREA DE COMERCIO: {{ d.area_comercio_m2|fmt_area }} M²</strong>. Lo cual arroja un <strong>VALOR CATASTRAL TOTAL DE: Bs {{ d.valor_catastral_total|fmt_money }}</strong>.</p>
+
+    <p>El cual se encuentra en las siguientes <strong>MEDIDAS Y LINDEROS</strong>:</p>
+</div>
+
+<!-- LINDEROS - MINIMALISTA SIN BORDE IZQUIERDO -->
+<div class="cert-linderos">
+    <div class="cert-linderos-title">Medidas y Linderos del Inmueble</div>
+    <div class="cert-lin-row">
+        <span class="cert-lin-dir">Norte:</span>
+        <span class="cert-lin-desc">{{ d.lindero_norte_doc or "—" }}</span>
+        <span class="cert-lin-mts">{{ d.lindero_norte_mts|fmt_mts }} mts</span>
+    </div>
+    <div class="cert-lin-row">
+        <span class="cert-lin-dir">Sur:</span>
+        <span class="cert-lin-desc">{{ d.lindero_sur_doc or "—" }}</span>
+        <span class="cert-lin-mts">{{ d.lindero_sur_mts|fmt_mts }} mts</span>
+    </div>
+    <div class="cert-lin-row">
+        <span class="cert-lin-dir">Este:</span>
+        <span class="cert-lin-desc">{{ d.lindero_este_doc or "—" }}</span>
+        <span class="cert-lin-mts">{{ d.lindero_este_mts|fmt_mts }} mts</span>
+    </div>
+    <div class="cert-lin-row">
+        <span class="cert-lin-dir">Oeste:</span>
+        <span class="cert-lin-desc">{{ d.lindero_oeste_doc or "—" }}</span>
+        <span class="cert-lin-mts">{{ d.lindero_oeste_mts|fmt_mts }} mts</span>
+    </div>
+</div>
+
+<!-- DISCLAIMER LEGAL -->
+<div class="cert-disclaimer">
+    <strong>DISPOSICIÓN LEGAL:</strong> La Alcaldía del Municipio Torbes hace constar que esta Certificación <strong>NO legaliza ningún título de propiedad</strong> sobre el inmueble y la misma se está adecuando a la Cartografía, Geografía y Catastro Nacional a las exigencias requeridas. Este documento <strong>NO AUTORIZA permiso para construir, ni para Variables Urbanas. No acredita propiedad.</strong> Un (01) año de vigencia desde la fecha de expedición, cumpliendo con la Ordenanza sobre Catastro vigente del Municipio Torbes.
+</div>
+
+<!-- FECHA DE EMISIÓN -->
+<div class="cert-fecha">
+    Dado, firmado y sellado en San Josecito, Municipio Torbes, Estado Táchira, a los {{ d.fecha_emision.strftime("%d") }} días del mes de {{ d.fecha_emision.strftime("%B") }} de {{ d.fecha_emision.strftime("%Y") }}.
+</div>
+
+<!-- FIRMAS -->
+<div class="sigs">
+    <div class="sig">
+        <div class="sig-line">
+            <div class="sig-name">{{ d.nombre_maxima_autoridad or "—" }}</div>
+            <div class="sig-role">{{ d.cargo_maxima_autoridad or "—" }}</div>
+            <div class="sig-ref">{{ d.texto_acta_maxima_autoridad or "—" }}</div>
+        </div>
+    </div>
+    <div class="sig">
+        <div class="sig-line">
+            <div class="sig-name">{{ d.nombre_director_catastro or "—" }}</div>
+            <div class="sig-role">{{ d.cargo_director_catastro or "—" }}</div>
+            <div class="sig-role">Alcaldía del Municipio Torbes, Estado Táchira</div>
+            <div class="sig-ref">{{ d.texto_resolucion_director or "—" }}</div>
+        </div>
+    </div>
+</div>
+
+<!-- PIE PÁGINA 1 - MINIMAL -->
+<div class="foot-bar">Dirección: {{ d.direccion_institucional or "Municipio Torbes, San Josecito, Vía al Llano, Troncal 5" }} — Teléfonos: 0426/5755511 — 0426/1709156 — (0276) 517.28.66</div>
+<div class="foot-logo">
+    <img src="{{ logos }}/logoalcaldia.png" alt="Alcaldía">
+</div>
+
+</div>
+
+<!-- ============================================================ -->
+<!-- PÁGINA 2: TABLAS TÉCNICAS                                    -->
+<!-- ============================================================ -->
+<div class="page-break"></div>
+
+<div class="content">
+
+<!-- ENCABEZADO PÁGINA 2 -->
+<div class="header">
+    <img class="emblem" src="{{ logos }}/escudotachira.png" alt="Táchira">
+    <div class="header-center">
+        <p class="hc-1">República Bolivariana de Venezuela</p>
+        <p class="hc-2">Estado {{ d.nombre_estado }}</p>
+        <p class="hc-3">ALCALDÍA BOLIVARIANA DEL MUNICIPIO {{ d.nombre_municipio|upper }}</p>
+        <p class="hc-4">RIF. {{ d.rif_alcaldia }}</p>
+        <p class="hc-5">DIRECCIÓN DE URBANISMO Y CATASTRO</p>
+    </div>
+    <img class="emblem" src="{{ logos }}/escudotorbes.png" alt="Torbes">
+</div>
+
+<!-- BLOQUE SUPERIOR -->
+<div class="upper-block">
+    <div class="doc-type">
+        <div class="dt1">CÉDULA CATASTRAL / EMPADRONAMIENTO</div>
+        <div class="dt2">TERRENO Y CONSTRUCCIÓN</div>
+        <div style="margin-top:4px"><span class="vigencia-stamp">VIGENTE HASTA {{ d.vigente_hasta.strftime("%d/%m/%Y") if d.vigente_hasta else "—" }}</span></div>
+    </div>
+    <table class="code-box">
+        <tr><th colspan="9" class="cb-title">CÓDIGO CATASTRAL</th></tr>
+        <tr>
+            <th>E</th><th>M</th><th>P</th><th>S</th><th>Ma</th><th>Pa</th><th>SP</th><th>N</th><th>U</th>
+        </tr>
+        <tr>
+            <td>{{ d.e }}</td><td>{{ d.m }}</td><td>{{ d.p }}</td><td>{{ d.s }}</td>
+            <td>{{ d.ma }}</td><td>{{ d.pa }}</td><td>{{ d.sp }}</td><td>{{ d.n }}</td><td>{{ d.u }}</td>
+        </tr>
+        <tr>
+            <td colspan="5" class="cb-exp">Expediente N°</td>
+            <td colspan="4" class="cb-exp">{{ d.expediente_numero or "—" }}</td>
+        </tr>
+    </table>
+</div>
+
+<!-- FRANJA RECIBO -->
+<div class="receipt-bar">
+    <span>FECHA DE RECIBO: {{ d.fecha_recibo.strftime("%d/%m/%Y") if d.fecha_recibo else "—" }}</span>
+    <span>N° DE RECIBO: {{ d.numero_recibo or "—" }}</span>
+    <span>FECHA DE EMISIÓN: {{ d.fecha_emision.strftime("%d/%m/%Y") if d.fecha_emision else "—" }}</span>
+</div>
+
+<!-- DATOS PROPIETARIO -->
+<table class="f">
+    <tr><td class="sh" colspan="4">DATOS DEL PROPIETARIO/ADMINISTRADOR</td></tr>
+    <tr>
+        <td colspan="2" style="width:65%"><span class="fl">Nombre y Apellido:</span> <span class="fv">{{ d.propietario_nombre or "—" }}</span></td>
+        <td colspan="2"><span class="fl">C.I/RIF:</span> <span class="fv">{{ d.cedula_rif or "—" }}</span></td>
+    </tr>
+    <tr>
+        <td colspan="4"><span class="fl">Dirección del Inmueble:</span> <span class="fv">{{ d.direccion }}</span></td>
+    </tr>
+    <tr>
+        <td><span class="fl">Documento:</span> {{ d.documento_tipo or "—" }}</td>
+        <td><span class="fl">Número:</span> {{ d.documento_numero or "—" }}</td>
+        <td><span class="fl">Tomo:</span> {{ d.documento_tomo or "—" }}</td>
+        <td><span class="fl">Fecha:</span> {{ d.documento_fecha.strftime("%d/%m/%Y") if d.documento_fecha else "—" }}</td>
+    </tr>
+    <tr>
+        <td><span class="fl">Tenencia:</span> {{ d.tenencia|upper if d.tenencia else "—" }}</td>
+        <td colspan="2"><span class="fl">Folio:</span> {{ d.documento_folio or "—" }}</td>
+        <td><span class="fl">Protocolo:</span> {{ d.documento_protocolo or "—" }}</td>
+    </tr>
+</table>
+
+<!-- LINDEROS DOCUMENTO -->
+<table class="f">
+    <tr><td class="sh" colspan="2">LINDEROS ACTUALES (SEGÚN DOCUMENTO)</td></tr>
+    <tr><td style="width:80%"><span class="fl">Norte:</span> {{ d.lindero_norte_doc or "—" }}</td><td style="text-align:right">Mts: {{ d.lindero_norte_mts or "—" }}</td></tr>
+    <tr><td><span class="fl">Sur:</span> {{ d.lindero_sur_doc or "—" }}</td><td style="text-align:right">Mts: {{ d.lindero_sur_mts or "—" }}</td></tr>
+    <tr><td><span class="fl">Este:</span> {{ d.lindero_este_doc or "—" }}</td><td style="text-align:right">Mts: {{ d.lindero_este_mts or "—" }}</td></tr>
+    <tr><td><span class="fl">Oeste:</span> {{ d.lindero_oeste_doc or "—" }}</td><td style="text-align:right">Mts: {{ d.lindero_oeste_mts or "—" }}</td></tr>
+</table>
+
+<!-- FACTIBILIDAD Y VALORES -->
+<table class="f">
+    <tr><td class="sh" colspan="4">SERVICIO DE FACTIBILIDAD</td></tr>
+    <tr>
+        <td><span class="fl">Aguas Blancas:</span> {{ "SI" if d.aguas_blancas else "NO" }}</td>
+        <td><span class="fl">Aguas Servidas:</span> {{ "SI" if d.aguas_servidas else "NO" }}</td>
+        <td><span class="fl">Electricidad:</span> {{ "SI" if d.electricidad else "NO" }}</td>
+        <td><span class="fl">Contador:</span> {{ "SI" if d.contador else "NO" }}</td>
+    </tr>
+    <tr>
+        <td><span class="fl">Existe Vivienda:</span> {{ "SI" if d.existe_vivienda else "NO" }}</td>
+        <td colspan="2"><span class="fl">Tipo:</span> {{ d.tipo_vivienda or "—" }}</td>
+        <td><span class="fl">Uso:</span> {{ d.descripcion_uso or "—" }}</td>
+    </tr>
+    <tr>
+        <td><span class="fl">N° de Plantas:</span> {{ d.numero_plantas or "—" }}</td>
+        <td colspan="3"><span class="fl">Uso según Zonificación:</span> {{ d.uso_segun_zonificacion or "—" }}</td>
+    </tr>
+    <tr>
+        <td><span class="fl">Área de Terreno (M²):</span> {{ d.area_terreno_m2|fmt_area }}</td>
+        <td><span class="fl">Valor Unit (Bs/M²):</span> {{ d.valor_unit_terreno|fmt_money }}</td>
+        <td colspan="2" class="val-total"><span class="fl">VALOR DEL TERRENO:</span><br>Bs {{ d.valor_terreno|fmt_money }}</td>
+    </tr>
+    <tr>
+        <td><span class="fl">Área de Construcción (M²):</span> {{ d.area_construccion_m2|fmt_area }}</td>
+        <td><span class="fl">Valor Unit (Bs/M²):</span> {{ d.valor_unit_construccion|fmt_money }}</td>
+        <td colspan="2" class="val-total"><span class="fl">VALOR DE LA<br>CONSTRUCCIÓN:</span> Bs {{ d.valor_construccion|fmt_money }}</td>
+    </tr>
+    <tr>
+        <td><span class="fl">Área de Comercio (M²):</span> {{ d.area_comercio_m2|fmt_area }}</td>
+        <td><span class="fl">Valor Unit (Bs/M²):</span> {{ d.valor_unit_comercio|fmt_money }}</td>
+        <td colspan="2" class="val-total"><span class="fl">VALOR DEL COMERCIO:</span><br>Bs {{ d.valor_comercio|fmt_money }}</td>
+    </tr>
+    <tr>
+        <td colspan="4" class="tr">VALOR CATASTRAL TOTAL: Bs {{ d.valor_catastral_total|fmt_money }}</td>
+    </tr>
+</table>
+
+<!-- LINDEROS TOPOGRAFÍA -->
+<table class="f">
+    <tr><td class="sh" colspan="2">LINDEROS ACTUALES (SEGÚN LEVANTAMIENTO TOPOGRÁFICO)</td></tr>
+    <tr><td style="width:80%"><span class="fl">Norte:</span> {{ d.lindero_norte_top or "—" }}</td><td style="text-align:right">Mts: {{ d.lindero_norte_top_mts or "—" }}</td></tr>
+    <tr><td><span class="fl">Sur:</span> {{ d.lindero_sur_top or "—" }}</td><td style="text-align:right">Mts: {{ d.lindero_sur_top_mts or "—" }}</td></tr>
+    <tr><td><span class="fl">Este:</span> {{ d.lindero_este_top or "—" }}</td><td style="text-align:right">Mts: {{ d.lindero_este_top_mts or "—" }}</td></tr>
+    <tr><td><span class="fl">Oeste:</span> {{ d.lindero_oeste_top or "—" }}</td><td style="text-align:right">Mts: {{ d.lindero_oeste_top_mts or "—" }}</td></tr>
+</table>
+
+<!-- UTM -->
+<table class="f">
+    <tr><td class="sh" colspan="2">COORDENADAS UTM (REGVEN)</td></tr>
+    <tr>
+        <td><span class="fl">Norte (N):</span> <span class="fv">{{ d.utm_norte|fmt_num }}</span></td>
+        <td><span class="fl">Este (E):</span> <span class="fv">{{ d.utm_este|fmt_num }}</span></td>
+    </tr>
+</table>
+
+<!-- CARACTERÍSTICAS -->
+<table class="f">
+    <tr><td class="sh" colspan="4">CARACTERÍSTICAS DEL INMUEBLE</td></tr>
+    <tr><td colspan="2"><span class="fl">Vía de Acceso:</span> {{ d.via_acceso|capitalize if d.via_acceso else "—" }}</td><td colspan="2"><span class="fl">Característica:</span> {{ d.caracteristica_general|capitalize if d.caracteristica_general else "—" }}</td></tr>
+    <tr><td><span class="fl">Estructura del Techo:</span> {{ d.estructura_techo|capitalize if d.estructura_techo else "—" }}</td><td><span class="fl">Estructura de Paredes:</span> {{ d.estructura_paredes|capitalize if d.estructura_paredes else "—" }}</td><td colspan="2"><span class="fl">Piso:</span> {{ d.piso|capitalize if d.piso else "—" }}</td></tr>
+    <tr>
+        <td><span class="fl">Ambientes:</span> {{ d.ambiente_otro or "—" }}</td>
+        <td><span class="fl">Dormitorios:</span> {{ d.dormitorios or "—" }}</td>
+        <td><span class="fl">Baños:</span> {{ d.banos or "—" }}</td>
+        <td><span class="fl">Sala:</span> {{ "SI" if d.sala else "NO" }} | <span class="fl">Cocina:</span> {{ "SI" if d.cocina else "NO" }}</td>
+    </tr>
+</table>
+
+<!-- OBSERVACIONES -->
+<table class="f">
+    <tr><td class="sh">OBSERVACIONES</td></tr>
+    <tr><td style="min-height:18px; vertical-align:top">{{ d.observaciones or "Sin observaciones" }}</td></tr>
+</table>
+
+<!-- NOTAS LEGALES + QR -->
+<div class="notes-section">
+    <div class="notes">
+        {% if d.notas_legales %}
+            {% for nota in d.notas_legales.splitlines() if nota.strip() %}
+                <p>{{ loop.index }}. {{ nota }}</p>
+            {% endfor %}
+        {% else %}
+            <p>1. Cédula Catastral que se expide a solicitud de la parte interesada para fines legales.</p>
+            <p>2. Los precios por m² del terreno y de la construcción están sujetos a cambios.</p>
+            <p>3. Si modifica dirección de acuerdo al nuevo ordenamiento municipal.</p>
+            <p>4. Un (01) año de vigencia desde la fecha de expedición cumpliendo con la ORDENANZA SOBRE CATASTRO.</p>
+            <p>5. NO AUTORIZA permiso para construir, ni para Variables Urbanas. No acredita propiedad.</p>
+        {% endif %}
+    </div>
+    {% if qr_code %}
+    <div class="notes-qr">
+        <img src="{{ qr_code }}" alt="QR Code">
+        <span>Verificación QR</span>
+    </div>
+    {% endif %}
+</div>
+
+<!-- PIE PÁGINA 2 -->
+<div class="foot-bar">{{ d.direccion_institucional or "Municipio Torbes, San Josecito, Vía al Llano, Troncal 5" }} — Teléfonos: 0426/5755511 — 0426/1709156 — (0276) 517.28.66</div>
+<div class="foot-logo">
+    <img src="{{ logos }}/logoalcaldia.png" alt="Alcaldía">
+</div>
+
+</div>
+
+</body>
+</html>

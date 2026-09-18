@@ -1,0 +1,26 @@
+# Entorno virtual
+.venv/
+venv/
+env/
+
+# Variables de entorno reales
+.env
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+
+# PDFs generados / archivos temporales
+/tmp_pdfs/
+/tmp_uploads/
+
+# Editor / SO
+.vscode/
+.idea/
+.DS_Store
+
+# Logs
+*.log

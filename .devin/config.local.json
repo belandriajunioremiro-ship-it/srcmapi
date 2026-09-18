@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Exec(dir)",
+      "Exec(ls)",
+      "Exec(mkdir web)",
+      "Exec(xcopy)",
+      "Exec(npx)",
+      "Exec(\"C:\\Program Files\\nodejs\\npm.cmd\" install)"
+    ]
+  }
+}
