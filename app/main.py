@@ -2,6 +2,8 @@ import logging
 
 from fastapi import FastAPI, HTTPException, status
 from fastapi.responses import HTMLResponse
+from fastapi.staticfiles import StaticFiles
+import os
 from fastapi.exception_handlers import http_exception_handler
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -80,6 +82,9 @@ app.add_middleware(
 
 app.include_router(api_router, prefix=settings.API_V1_PREFIX)
 
+if os.path.exists("static"):
+    app.mount("/static", StaticFiles(directory="static"), name="static")
+
 
 @app.exception_handler(HTTPException)
 async def log_http_exceptions(request, exc: HTTPException):
@@ -125,8 +130,8 @@ def raiz():
                     </div>
                     
                     <div class="flex-shrink-0 relative z-10">
-                        <div class="w-32 h-32 rounded-3xl bg-blue-600/20 backdrop-blur-md text-blue-400 flex items-center justify-center shadow-2xl shadow-blue-900/50 border border-blue-500/30">
-                            <i class="fa-solid fa-satellite text-6xl"></i>
+                        <div class="w-32 h-32 rounded-3xl bg-white flex items-center justify-center shadow-2xl shadow-blue-900/50 border border-blue-500/30 p-3">
+                            <img src="/static/logos/logoalcaldia.png" alt="Alcaldía de Torbes" class="w-full h-full object-contain">
                         </div>
                     </div>
                     
@@ -200,41 +205,66 @@ def raiz():
                     <!-- Stack Tecnológico -->
                     <div class="border-t border-slate-100 pt-10 text-center">
                         <h4 class="text-sm font-bold text-slate-400 uppercase tracking-widest mb-8">Stack Tecnológico y Herramientas</h4>
-                        <div class="flex flex-wrap justify-center items-center gap-8 md:gap-12 opacity-80 hover:opacity-100 transition-opacity">
+                        <div class="flex flex-wrap justify-center items-center gap-6 md:gap-10 opacity-90 hover:opacity-100 transition-opacity">
                             
                             <div class="flex flex-col items-center gap-2 group cursor-default">
-                                <i class="devicon-python-plain colored text-5xl group-hover:scale-110 transition-transform"></i>
-                                <span class="text-xs font-semibold text-slate-500">Python 3.12</span>
-                            </div>
-
-                            <div class="flex flex-col items-center gap-2 group cursor-default">
-                                <i class="devicon-fastapi-plain colored text-5xl group-hover:scale-110 transition-transform"></i>
+                                <img src="/static/logos/fastapi.png" alt="FastAPI" class="w-12 h-12 object-contain group-hover:scale-110 transition-transform drop-shadow-sm">
                                 <span class="text-xs font-semibold text-slate-500">FastAPI</span>
                             </div>
 
                             <div class="flex flex-col items-center gap-2 group cursor-default">
-                                <i class="devicon-postgresql-plain colored text-5xl group-hover:scale-110 transition-transform"></i>
+                                <img src="/static/logos/PostgreSQL-Logo.png" alt="PostgreSQL" class="w-12 h-12 object-contain group-hover:scale-110 transition-transform drop-shadow-sm">
                                 <span class="text-xs font-semibold text-slate-500">PostgreSQL</span>
                             </div>
 
-                            <div class="flex flex-col items-center gap-2 group cursor-default text-blue-800">
-                                <i class="devicon-postgis-plain text-5xl group-hover:scale-110 transition-transform" style="color: #4F80B0;"></i>
+                            <div class="flex flex-col items-center gap-2 group cursor-default">
+                                <img src="/static/logos/posgist.jpg" alt="PostGIS" class="w-12 h-12 object-contain rounded-lg group-hover:scale-110 transition-transform shadow-sm">
                                 <span class="text-xs font-semibold text-slate-500">PostGIS</span>
                             </div>
 
                             <div class="flex flex-col items-center gap-2 group cursor-default">
-                                <i class="devicon-supabase-plain colored text-5xl group-hover:scale-110 transition-transform"></i>
+                                <img src="/static/logos/supabase.webp" alt="Supabase" class="w-12 h-12 object-contain group-hover:scale-110 transition-transform drop-shadow-sm">
                                 <span class="text-xs font-semibold text-slate-500">Supabase</span>
                             </div>
 
                             <div class="flex flex-col items-center gap-2 group cursor-default">
-                                <i class="devicon-pytest-plain colored text-5xl group-hover:scale-110 transition-transform"></i>
-                                <span class="text-xs font-semibold text-slate-500">Pytest</span>
+                                <img src="/static/logos/Pydantic.png" alt="Pydantic" class="w-12 h-12 object-contain group-hover:scale-110 transition-transform drop-shadow-sm">
+                                <span class="text-xs font-semibold text-slate-500">Pydantic</span>
                             </div>
 
                             <div class="flex flex-col items-center gap-2 group cursor-default">
-                                <i class="devicon-sqlalchemy-plain colored text-5xl group-hover:scale-110 transition-transform"></i>
+                                <img src="/static/logos/SQLAlchemy.jpg" alt="SQLAlchemy" class="w-12 h-12 object-contain rounded-lg group-hover:scale-110 transition-transform shadow-sm">
                                 <span class="text-xs font-semibold text-slate-500">SQLAlchemy</span>
+                            </div>
+
+                            <div class="flex flex-col items-center gap-2 group cursor-default">
+                                <img src="/static/logos/Psycopg2.png" alt="Psycopg2" class="w-12 h-12 object-contain group-hover:scale-110 transition-transform drop-shadow-sm">
+                                <span class="text-xs font-semibold text-slate-500">Psycopg2</span>
+                            </div>
+
+                            <div class="flex flex-col items-center gap-2 group cursor-default">
+                                <img src="/static/logos/ReportLab.avif" alt="ReportLab" class="w-12 h-12 object-contain rounded-lg group-hover:scale-110 transition-transform shadow-sm">
+                                <span class="text-xs font-semibold text-slate-500">ReportLab</span>
+                            </div>
+
+                            <div class="flex flex-col items-center gap-2 group cursor-default">
+                                <img src="/static/logos/geopandas.png" alt="GeoPandas" class="w-12 h-12 object-contain group-hover:scale-110 transition-transform drop-shadow-sm">
+                                <span class="text-xs font-semibold text-slate-500">GeoPandas</span>
+                            </div>
+
+                            <div class="flex flex-col items-center gap-2 group cursor-default">
+                                <img src="/static/logos/PyJWT.jpg" alt="PyJWT" class="w-12 h-12 object-contain rounded-lg group-hover:scale-110 transition-transform shadow-sm">
+                                <span class="text-xs font-semibold text-slate-500">PyJWT</span>
+                            </div>
+                            
+                            <div class="flex flex-col items-center gap-2 group cursor-default">
+                                <img src="/static/logos/Qrcode.jpg" alt="QR Code" class="w-12 h-12 object-contain rounded-lg group-hover:scale-110 transition-transform shadow-sm">
+                                <span class="text-xs font-semibold text-slate-500">QRCode</span>
+                            </div>
+
+                            <div class="flex flex-col items-center gap-2 group cursor-default">
+                                <img src="/static/logos/pytest.png" alt="Pytest" class="w-12 h-12 object-contain group-hover:scale-110 transition-transform drop-shadow-sm">
+                                <span class="text-xs font-semibold text-slate-500">Pytest</span>
                             </div>
 
                         </div>
