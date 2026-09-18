@@ -19,13 +19,10 @@ class TestSalud:
     
     def test_raiz_sistema(self, base_url):
         """
-        SC-002: Raíz del sistema
-        Verificar información básica del servicio
+        SLD-002: Verificar endpoint raíz
+        Verifica que la raíz redirige o da un mensaje de bienvenida (HTML)
         """
         response = requests.get(f"{base_url}/")
         assert response.status_code == 200
-        data = response.json()
-        assert "servicio" in data
-        assert "estado" in data
-        assert "documentacion" in data
-        assert data["estado"] == "activo"
+        assert "text/html" in response.headers["content-type"]
+        assert "SRCM" in response.text or "Catastral" in response.text

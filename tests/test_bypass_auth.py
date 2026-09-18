@@ -212,25 +212,34 @@ class TestCatastroBypass:
     """Pruebas de catastro usando service_role_key"""
     
     def test_verificar_tablas_existentes(self):
-        """Verificar que las tablas existen en Supabase"""
+        """Verificar que todas las tablas y vistas v2.5 existen en Supabase"""
         supabase_url = os.getenv("SUPABASE_URL")
         service_role_key = os.getenv("SUPABASE_SERVICE_ROLE_KEY")
         
-        tablas = ["configuracion_catastral", "propietarios", "inmuebles", "usuarios"]
+        tablas_y_vistas = [
+            "configuracion_catastral", 
+            "configuracion_sistema",
+            "usuarios", 
+            "propietarios", 
+            "inmuebles", 
+            "hitos_prediales",
+            "fotos_inmueble",
+            "v_cedula_catastral",
+            "v_pdf_cedula_catastral"
+        ]
         
-        for tabla in tablas:
+        for tabla in tablas_y_vistas:
             url = f"{supabase_url}/rest/v1/{tabla}?limit=1"
             headers = {
                 "apikey": service_role_key,
                 "Authorization": f"Bearer {service_role_key}",
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                "Prefer": "count=exact"
             }
             
             response = requests.get(url, headers=headers)
-            if response.status_code == 200:
-                print(f"✅ Tabla '{tabla}' existe y es accesible")
-            else:
-                print(f"❌ Tabla '{tabla}' no accesible: {response.status_code}")
+            assert response.status_code in (200, 206), f"Fallo al acceder a la tabla/vista: {tabla} - HTTP {response.status_code}"
+            print(f"-> Objeto '{tabla}' verificado exitosamente en Supabase (v2.5)")
 
 
 class TestFlujoCompletoBypass:

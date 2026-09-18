@@ -18,9 +18,8 @@ class TestSinAuth:
         """SC-002: Raíz del sistema"""
         response = requests.get(f"{base_url}/")
         assert response.status_code == 200
-        data = response.json()
-        assert "servicio" in data
-        assert data["estado"] == "activo"
+        assert "text/html" in response.headers["content-type"]
+        assert "SRCM" in response.text
     
     def test_documentacion_swagger(self, base_url):
         """Verificar que la documentación Swagger está disponible"""
