@@ -122,7 +122,7 @@ def raiz():
         <main class="flex-grow flex flex-col items-center p-4 md:p-8 mt-4 md:mt-8 w-full">
             
             <!-- Hero Banner -->
-            <div class="max-w-6xl w-full bg-gradient-to-br from-[#0f172a] to-blue-900 rounded-3xl shadow-2xl p-8 md:p-14 relative overflow-hidden flex flex-col items-center text-center mb-12 border border-slate-800">
+            <div class="max-w-[1400px] w-full bg-gradient-to-br from-[#0f172a] to-blue-900 rounded-3xl shadow-2xl p-8 md:p-14 relative overflow-hidden flex flex-col items-center text-center mb-12 border border-slate-800">
                 <!-- Decoración geométrica -->
                 <div class="absolute -right-10 -bottom-10 text-blue-500 opacity-10 text-[250px] pointer-events-none transform rotate-12">
                     <i class="fa-solid fa-map-marked-alt"></i>
@@ -142,7 +142,7 @@ def raiz():
                 </div>
             </div>
 
-            <div class="max-w-6xl w-full">
+            <div class="max-w-[1400px] w-full">
                 <!-- Modulos del Sistema -->
                 <div class="mb-16">
                     <h3 class="text-xl font-bold text-slate-800 mb-8 flex items-center gap-2 justify-center md:justify-start">
@@ -275,7 +275,7 @@ def raiz():
 
         <!-- Footer -->
         <footer class="py-6 mt-auto">
-            <div class="max-w-6xl mx-auto px-6 text-center text-sm text-slate-500 font-medium">
+            <div class="max-w-[1400px] mx-auto px-6 text-center text-sm text-slate-500 font-medium">
                 <p>&copy; 2026 Alcaldía del Municipio Torbes. Dirección de Catastro. Todos los derechos reservados.</p>
             </div>
         </footer>
