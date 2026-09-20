@@ -1,100 +1,500 @@
-﻿# 📱 S.R.C.M. Mobile - App de Inspección en Campo (React Native + Expo)
+# 📱 SRCM Mobile — App de Inspección Catastral en Campo
 
-Este documento define la arquitectura, estructura y flujo de la aplicación móvil oficial del **Sistema de Registro Catastral Municipal (SRCM)**. 
-Es una herramienta **exclusiva de campo** diseñada para los inspectores y topógrafos de la Alcaldía.
+Aplicación móvil oficial del **Sistema de Registro Catastral Municipal (SRCM)**.
+Herramienta exclusiva de campo para inspectores y topógrafos de la Alcaldía del Municipio Torbes.
 
-## 🎯 Objetivo de la App
-Permitir a los inspectores registrar inmuebles directamente desde el terreno, capturando coordenadas GPS, fotos de fachadas, características físicas y transcribiendo los datos de los documentos antiguos. 
-
----
-
-## 🎨 Diseño UI/UX (Design System)
-Minimalista, profesional y de alto contraste para visibilidad bajo el sol.
-- **Color Principal (Primario):** Azul Institucional (#2563EB o similar a Tailwind lue-600).
-- **Fondos (Background):** Blanco puro (#FFFFFF) y grises muy claros (#F3F4F6) para separar tarjetas.
-- **Textos (Tipografía):** Negro (#111827) para títulos y gris oscuro (#4B5563) para subtítulos. Letra *Nunito* o sistema nativo.
-- **Estilo:** *Boxless* (sin cajas marcadas), uso de sombras suaves, botones amplios (touch-friendly).
+> **Función única:** Login, Registro de cuenta, Crear propietarios, Registrar inmuebles completos (linderos, servicios, características, GPS, fotos).
 
 ---
 
-## 🛠️ Stack Tecnológico y Paquetes Clave (Expo Go)
-Para garantizar la mejor experiencia, fluidez y acceso al hardware del teléfono:
+## 🎨 Design System
 
-1. **Framework:** React Native con Expo Go (Fácil desarrollo y despliegue rápido).
-2. **Navegación:** @react-navigation/native y @react-navigation/native-stack.
-3. **Autenticación:** @supabase/supabase-js (Login/Registro directo con Supabase. *Nota: Confirmación por email desactivada*).
-4. **Peticiones HTTP:** xios (Para consumir la API de Render srcmapi.onrender.com).
-5. **Hardware (GPS y Cámara):** 
-   - expo-location (Para obtener Lat/Lon exacta del topógrafo).
-   - expo-camera o expo-image-picker (Para fotos de la fachada).
-6. **Formularios complejos:** eact-hook-form + yup o zod (Para validar los cientos de campos antes de enviar).
-7. **Estilos:** 
-ativewind (Tailwind CSS para React Native) o StyleSheet nativo.
+| Elemento | Valor |
+|:--|:--|
+| **Primario** | `#2563EB` (Azul Institucional) |
+| **Fondo claro** | `#FFFFFF` / `#F3F4F6` |
+| **Texto título** | `#111827` (Negro) |
+| **Texto secundario** | `#4B5563` (Gris oscuro) |
+| **Tipografía** | Nunito (Google Fonts) o sistema nativo |
+| **Estilo** | Boxless, sombras suaves, botones amplios touch-friendly |
 
 ---
 
-## 📂 Estructura de Carpetas Propuesta
+## 🛠️ Stack Tecnológico
 
-`	ext
+| Categoría | Paquete | Función |
+|:--|:--|:--|
+| **Framework** | `react-native` + `expo` | Base de la app |
+| **Navegación** | `@react-navigation/native` | Sistema de rutas |
+| | `@react-navigation/native-stack` | Stack de pantallas |
+| | `@react-navigation/bottom-tabs` | Tabs inferiores |
+| **Auth** | `@supabase/supabase-js` | Login/Registro directo con Supabase |
+| | `@react-native-async-storage/async-storage` | Persistir sesión JWT |
+| **HTTP** | `axios` | Consumir API de Render |
+| **Formularios** | `react-hook-form` | Gestión de formularios complejos |
+| | `zod` + `@hookform/resolvers` | Validación de esquemas |
+| **GPS** | `expo-location` | Capturar Lat/Lon del topógrafo |
+| **Cámara/Fotos** | `expo-image-picker` | Tomar fotos de fachada |
+| **Estilos** | `nativewind` + `tailwindcss` | Tailwind CSS en React Native |
+| **Iconos** | `@expo/vector-icons` | Iconografía (viene con Expo) |
+| **Notificaciones** | `react-native-toast-message` | Alertas visuales |
+| **Splash/Loading** | `expo-splash-screen` | Pantalla de carga |
+| **Seguridad** | `expo-secure-store` | Almacenar tokens de forma segura |
+| **Fuentes** | `expo-font` + `@expo-google-fonts/nunito` | Tipografía Nunito |
+
+---
+
+## 📦 Comandos de Instalación (Copy-Paste)
+
+### 1. Crear el proyecto
+```bash
+npx create-expo-app srcm-mobile --template blank
+cd srcm-mobile
+```
+
+### 2. Navegación
+```bash
+npx expo install @react-navigation/native @react-navigation/native-stack @react-navigation/bottom-tabs react-native-screens react-native-safe-area-context
+```
+
+### 3. Supabase Auth + Almacenamiento seguro
+```bash
+npx expo install @supabase/supabase-js @react-native-async-storage/async-storage expo-secure-store
+```
+
+### 4. HTTP Client
+```bash
+npm install axios
+```
+
+### 5. Formularios y Validación
+```bash
+npm install react-hook-form zod @hookform/resolvers
+```
+
+### 6. Hardware (GPS + Cámara)
+```bash
+npx expo install expo-location expo-image-picker
+```
+
+### 7. Estilos (NativeWind / Tailwind)
+```bash
+npm install nativewind tailwindcss
+npx tailwindcss init
+```
+
+### 8. UI Extras (Fuentes, Iconos, Toast, Splash)
+```bash
+npx expo install expo-font @expo-google-fonts/nunito expo-splash-screen react-native-toast-message
+```
+
+---
+
+## 📂 Estructura de Carpetas y Archivos
+
+```
 srcm-mobile/
-├── App.js                   # Punto de entrada y proveedor de Contextos
-├── app.json                 # Configuración de Expo (Permisos GPS/Cámara)
+├── App.js                                    # Punto de entrada, proveedores de contexto
+├── app.json                                  # Config Expo (permisos GPS, cámara, nombre)
+├── tailwind.config.js                        # Config de NativeWind / Tailwind
+├── babel.config.js                           # Config Babel (plugin NativeWind)
+│
 ├── src/
-│   ├── api/                 # Configuración de Axios y endpoints del backend
-│   ├── auth/                # Configuración del cliente Supabase
-│   ├── components/          # Componentes UI reutilizables (Botones, Inputs, Modales)
-│   ├── navigation/          # AppNavigator (AuthStack vs MainStack)
-│   ├── screens/             # Pantallas completas de la app
-│   │   ├── auth/            # LoginScreen.js, RegisterScreen.js
-│   │   ├── home/            # DashboardScreen.js (Menú principal)
-│   │   └── registro/        # Wizard de Registro (Paso 1, Paso 2, etc.)
-│   ├── services/            # Lógica de negocio (Cámara, GPS, envío de datos)
-│   └── utils/               # Helpers, validaciones y constantes de colores
-`
+│   │
+│   ├── config/
+│   │   ├── supabase.js                       # Cliente Supabase (URL + anon key)
+│   │   ├── api.js                            # Instancia Axios con baseURL e interceptor JWT
+│   │   └── constants.js                      # Colores, URLs, textos reutilizables
+│   │
+│   ├── contexts/
+│   │   └── AuthContext.js                    # Context API para sesión del usuario
+│   │
+│   ├── navigation/
+│   │   ├── AppNavigator.js                   # Decide: AuthStack o MainStack según sesión
+│   │   ├── AuthStack.js                      # Stack: Login → Registro
+│   │   └── MainStack.js                      # Stack: Dashboard → Wizard de Registro
+│   │
+│   ├── screens/
+│   │   ├── auth/
+│   │   │   ├── LoginScreen.js                # Pantalla de inicio de sesión
+│   │   │   └── RegisterScreen.js             # Pantalla de crear cuenta
+│   │   │
+│   │   ├── home/
+│   │   │   └── DashboardScreen.js            # Menú principal (Nuevo Registro, Historial)
+│   │   │
+│   │   └── registro/
+│   │       ├── Paso1_PropietarioScreen.js    # Cédula, nombre, apellido, teléfono, email
+│   │       ├── Paso2_DocumentoScreen.js      # Documento de propiedad + Linderos según documento
+│   │       ├── Paso3_CaracteristicasScreen.js # Servicios, edificación, linderos topográficos
+│   │       ├── Paso4_AvaluoScreen.js         # Áreas m², valores unitarios, zonificación
+│   │       ├── Paso5_GPSFotosScreen.js       # Captura GPS (expo-location) + Cámara
+│   │       └── Paso6_ResumenScreen.js        # Vista previa completa antes de enviar
+│   │
+│   ├── components/
+│   │   ├── ui/
+│   │   │   ├── Button.js                     # Botón primario/secundario reutilizable
+│   │   │   ├── Input.js                      # Input de texto con label y error
+│   │   │   ├── Switch.js                     # Toggle para booleanos (Electricidad SI/NO)
+│   │   │   ├── Select.js                     # Picker/Dropdown (tipo vivienda, tenencia)
+│   │   │   └── StepIndicator.js              # Barra de progreso del Wizard (Paso 1 de 6)
+│   │   │
+│   │   ├── LinderoInput.js                   # Componente para 1 lindero (descripción + metros)
+│   │   ├── LinderoGroup.js                   # Grupo de 4 linderos (Norte/Sur/Este/Oeste)
+│   │   ├── GPSCapture.js                     # Botón + display de coordenadas capturadas
+│   │   └── PhotoCapture.js                   # Botón de cámara + preview de foto
+│   │
+│   ├── services/
+│   │   ├── authService.js                    # signIn(), signUp(), signOut() con Supabase
+│   │   ├── propietarioService.js             # crearPropietario(), buscarPropietario()
+│   │   ├── inmuebleService.js                # crearInmueble(), listarInmuebles()
+│   │   ├── hitoService.js                    # agregarHito() con coordenadas GPS
+│   │   ├── fotoService.js                    # subirFoto() con URL de imagen
+│   │   └── locationService.js                # getCurrentPosition() con alta precisión
+│   │
+│   ├── hooks/
+│   │   ├── useAuth.js                        # Hook para consumir AuthContext
+│   │   └── useLocation.js                    # Hook para captura GPS con estado de carga
+│   │
+│   ├── validations/
+│   │   ├── propietarioSchema.js              # Esquema Zod para validar propietario
+│   │   ├── inmuebleSchema.js                 # Esquema Zod para validar inmueble completo
+│   │   └── loginSchema.js                    # Esquema Zod para login/registro
+│   │
+│   └── utils/
+│       ├── formatters.js                     # Formatear moneda (Bs), fechas, cédula
+│       └── storage.js                        # Helpers para SecureStore (guardar/leer token)
+```
 
 ---
 
-## 📱 Flujo de Pantallas y Formularios (El "Wizard")
+## 📱 Flujo de Pantallas (Wizard de 6 Pasos)
 
-Dado que un registro tiene muchos datos, se debe dividir en un **Wizard (Formulario por pasos)** para no abrumar al inspector en la pantalla pequeña del teléfono.
+```
+┌─────────────┐     ┌──────────────┐
+│   LOGIN     │────▶│  DASHBOARD   │
+│  REGISTRO   │     │  (Menú)      │
+└─────────────┘     └──────┬───────┘
+                           │
+                    ┌──────▼───────┐
+                    │  PASO 1      │  Propietario: Cédula, Nombre, Apellido, Teléfono, Email
+                    └──────┬───────┘
+                    ┌──────▼───────┐
+                    │  PASO 2      │  Documento: Tipo, Número, Tomo, Folio, Protocolo, Fecha
+                    │              │  Linderos Según Documento: N/S/E/O + metros
+                    └──────┬───────┘
+                    ┌──────▼───────┐
+                    │  PASO 3      │  Servicios: Agua, Electricidad, Contador (toggles)
+                    │              │  Edificación: Tipo vivienda, Techo, Paredes, Piso
+                    │              │  Linderos Según Topografía: N/S/E/O + metros
+                    └──────┬───────┘
+                    ┌──────▼───────┐
+                    │  PASO 4      │  Avalúos: Área terreno m², Valor unit, Área construcción
+                    │              │  Área comercio, Zonificación, Plantas
+                    └──────┬───────┘
+                    ┌──────▼───────┐
+                    │  PASO 5      │  [CAPTURAR GPS] → expo-location (Lat/Lon)
+                    │              │  [TOMAR FOTO]   → expo-image-picker (Fachada)
+                    └──────┬───────┘
+                    ┌──────▼───────┐
+                    │  PASO 6      │  Resumen completo → Confirmar → Enviar al Backend
+                    └──────────────┘
+```
 
-### 1. Módulo de Autenticación (Auth)
-- **Login:** Correo y contraseña.
-- **Registro:** Crear cuenta (Solo para nuevos inspectores). *La cuenta se activa inmediatamente sin pedir verificación de email.*
+---
 
-### 2. Paso 1: Propietarios (Y Co-propietarios)
-- Inputs: Cédula/RIF, Nombres, Apellidos, Teléfono, Correo.
-- *Nota de Arquitectura:* La base de datos actual vincula 1 propietario principal. La app permitirá registrar al "Propietario Principal" y en un futuro soportará agregar un array de co-propietarios.
+## 🌐 Mapa Completo de Endpoints a Consumir
 
-### 3. Paso 2: Datos del Documento (Transcripción manual)
-- Se transcriben los datos del papel viejo: Número, Tomo, Folios, Fecha, Protocolo.
-- **Linderos Según Documento:** Inputs de texto para transcribir literalmente lo que dice el papel (Norte, Sur, Este, Oeste y sus medidas en metros).
+**Base URL:** `https://srcmapi.onrender.com/api/v1`
+**Header obligatorio:** `Authorization: Bearer <TOKEN_SUPABASE>`
 
-### 4. Paso 3: Características Físicas y Topografía (Trabajo de Campo)
-- **Linderos Según Topografía:** Lo que el inspector está viendo (Ej: Norte: Muro Perimetral 15.55mts).
-- **Servicios:** Switches (Toggle) para Aguas Blancas, Aguas Servidas, Electricidad.
-- **Edificación:** Tipo de vivienda, Pisos, Estructura de techo (Placa/Zinc), Paredes, Habitaciones.
+### Autenticación (Directo con Supabase SDK — No pasa por el backend)
 
-### 5. Paso 4: Hardware (Geometría y Fotos)
-- **Captura GPS:** Botón grande [CAPTURAR COORDENADA ACTUAL]. Usa expo-location con alta precisión para obtener Lat/Lon.
-- **Cámara:** Tomar foto de la fachada.
+| Acción | Método Supabase | Campos |
+|:--|:--|:--|
+| **Login** | `supabase.auth.signInWithPassword()` | `email` (req), `password` (req) |
+| **Registro** | `supabase.auth.signUp()` | `email` (req), `password` (req) |
+| **Cerrar sesión** | `supabase.auth.signOut()` | — |
+| **Sesión actual** | `supabase.auth.getSession()` | — (devuelve `access_token`) |
+
+> ⚠️ La confirmación de email está **desactivada** en Supabase. La cuenta se activa al instante.
 
 ---
 
-## 🌐 Endpoints del Backend a Consumir (API Render)
+### Propietarios — `POST /api/v1/propietarios`
 
-La App Móvil actuará únicamente como cliente. Toda la lógica pesada (PostGIS, generación de Códigos Catastrales y PDFs) ocurre en el backend.
+Crea un nuevo propietario (dueño del terreno). Se ejecuta en el **Paso 1** del Wizard.
 
-| Acción | Método | Endpoint (FastAPI) | Payload Principal |
-| :--- | :--- | :--- | :--- |
-| **Autenticación** | POST | *Directo vía Supabase SDK* | email, password |
-| **1. Crear Dueño** | POST | /api/v1/propietarios | cedula_rif, 
-ombre, pellido, 	elefono |
-| **2. Crear Ficha** | POST | /api/v1/inmuebles | propietario_id, linderos_doc, linderos_top, caracteristicas, servicios, geom (Polígono básico o centroide) |
-| **3. Anexar GPS**| POST | /api/v1/inmuebles/{id}/hitos | lat, lon (Capturados del teléfono) |
-| **4. Subir Foto** | POST | /api/v1/inmuebles/{id}/fotos | Imagen en Base64 o Multipart form-data |
+| Campo | Tipo | Requerido | Ejemplo |
+|:--|:--|:--|:--|
+| `cedula_rif` | `string` (5-20 chars) | ✅ Sí | `"V-12345678"` |
+| `nombre` | `string` (min 1) | ✅ Sí | `"Juan Carlos"` |
+| `apellido` | `string` (min 1) | ✅ Sí | `"Pérez López"` |
+| `telefono` | `string \| null` | ❌ No | `"0414-5551234"` |
+| `email` | `email \| null` | ❌ No | `"juan@correo.com"` |
+| `direccion` | `string \| null` | ❌ No | `"Av. Principal, San Josecito"` |
 
-> **Nota de Seguridad:** Todas las peticiones al backend (Axios) deben incluir el Header Authorization: Bearer <TOKEN_SUPABASE>.
+**Respuesta:** `201 Created` → `PropietarioOut` (incluye `id: UUID` generado).
 
 ---
-*Documentación estratégica creada para el desarrollo del cliente móvil SRCM.*
+
+### Inmuebles — `POST /api/v1/inmuebles`
+
+Crea el registro catastral completo. Se ejecuta en el **Paso 6** (al confirmar el resumen). Es el payload más grande de la API.
+
+#### Identificación y Ubicación Catastral
+
+| Campo | Tipo | Requerido | Ejemplo |
+|:--|:--|:--|:--|
+| `propietario_id` | `UUID` | ❌ No | `"7e5846d2-6639-..."` |
+| `direccion` | `string` (min 1) | ✅ Sí | `"Quinta El Trigal #45"` |
+| `sector` | `string` (2 chars) | ✅ Sí | `"06"` |
+| `manzana` | `string` (3 chars) | ✅ Sí | `"049"` |
+| `parcela` | `string` (3 chars) | ✅ Sí | `"232"` |
+| `subparcela` | `string` (3 chars) | ❌ No | `"000"` (default) |
+| `nivel` | `string` (3 chars) | ❌ No | `"000"` (default) |
+| `unidad` | `string` (3 chars) | ❌ No | `"000"` (default) |
+| `tenencia` | `string` | ❌ No | `"propio"` / `"ejido"` / `"arrendado"` |
+
+#### Documento de Propiedad (Transcripción del papel viejo)
+
+| Campo | Tipo | Requerido | Ejemplo |
+|:--|:--|:--|:--|
+| `documento_tipo` | `string \| null` | ❌ No | `"Registro Inmobiliario de Torbes"` |
+| `documento_numero` | `string \| null` | ❌ No | `"DOC-2658"` |
+| `documento_tomo` | `string \| null` | ❌ No | `"Tomo IV"` |
+| `documento_folio` | `string \| null` | ❌ No | `"Folios 45 al 50"` |
+| `documento_protocolo` | `string \| null` | ❌ No | `"Primer Protocolo"` |
+| `documento_fecha` | `date (YYYY-MM-DD)` | ❌ No | `"2018-05-14"` |
+
+#### Linderos Según Documento (Lo que dice el papel viejo)
+
+| Campo | Tipo | Requerido | Ejemplo |
+|:--|:--|:--|:--|
+| `lindero_norte_doc` | `string \| null` | ❌ No | `"Calle Principal de la Urbanización"` |
+| `lindero_norte_mts` | `float \| null` | ❌ No | `15.50` |
+| `lindero_sur_doc` | `string \| null` | ❌ No | `"Parcela Colindante N° 08"` |
+| `lindero_sur_mts` | `float \| null` | ❌ No | `15.50` |
+| `lindero_este_doc` | `string \| null` | ❌ No | `"Avenida Los Cedros"` |
+| `lindero_este_mts` | `float \| null` | ❌ No | `22.58` |
+| `lindero_oeste_doc` | `string \| null` | ❌ No | `"Terreno Municipal Área Verde"` |
+| `lindero_oeste_mts` | `float \| null` | ❌ No | `22.58` |
+
+#### Linderos Según Levantamiento Topográfico (Lo que el inspector mide en campo)
+
+| Campo | Tipo | Requerido | Ejemplo |
+|:--|:--|:--|:--|
+| `lindero_norte_top` | `string \| null` | ❌ No | `"Calle Principal (Muro Perimetral)"` |
+| `lindero_norte_top_mts` | `float \| null` | ❌ No | `15.55` |
+| `lindero_sur_top` | `string \| null` | ❌ No | `"Parcela Colindante N° 08 (Cerca)"` |
+| `lindero_sur_top_mts` | `float \| null` | ❌ No | `15.52` |
+| `lindero_este_top` | `string \| null` | ❌ No | `"Avenida Los Cedros"` |
+| `lindero_este_top_mts` | `float \| null` | ❌ No | `22.60` |
+| `lindero_oeste_top` | `string \| null` | ❌ No | `"Terreno Municipal Área Verde"` |
+| `lindero_oeste_top_mts` | `float \| null` | ❌ No | `22.55` |
+
+#### Servicios de Factibilidad
+
+| Campo | Tipo | Requerido | Default |
+|:--|:--|:--|:--|
+| `aguas_blancas` | `bool` | ❌ No | `false` |
+| `aguas_servidas` | `bool` | ❌ No | `false` |
+| `electricidad` | `bool` | ❌ No | `false` |
+| `contador` | `bool` | ❌ No | `false` |
+
+#### Edificación y Uso
+
+| Campo | Tipo | Requerido | Ejemplo |
+|:--|:--|:--|:--|
+| `existe_vivienda` | `bool` | ❌ No | `true` |
+| `tipo_vivienda` | `string \| null` | ❌ No | `"Quinta de dos niveles"` |
+| `descripcion_uso` | `string` | ❌ No | `"residencial"` (default) |
+| `numero_plantas` | `int \| null` | ❌ No | `2` |
+| `uso_segun_zonificacion` | `string \| null` | ❌ No | `"R3 - Residencial Mixto"` |
+
+#### Características Físicas del Inmueble
+
+| Campo | Tipo | Requerido | Ejemplo |
+|:--|:--|:--|:--|
+| `via_acceso` | `string \| null` | ❌ No | `"asfalto"` |
+| `estructura_techo` | `string \| null` | ❌ No | `"placa"` |
+| `estructura_paredes` | `string \| null` | ❌ No | `"bloque"` |
+| `piso` | `string \| null` | ❌ No | `"ceramica"` |
+| `dormitorios` | `int \| null` | ❌ No | `5` |
+| `banos` | `int \| null` | ❌ No | `4` |
+| `sala` | `bool` | ❌ No | `true` |
+| `cocina` | `bool` | ❌ No | `true` |
+| `ambiente_otro` | `string \| null` | ❌ No | `"Estacionamiento, Patio trasero"` |
+| `caracteristica_general` | `string \| null` | ❌ No | `"aislada"` |
+| `observaciones` | `string \| null` | ❌ No | `"Levantamiento con Drone RTK"` |
+
+#### Avalúos (Valores en Bolívares por m²)
+
+| Campo | Tipo | Requerido | Ejemplo |
+|:--|:--|:--|:--|
+| `area_terreno_m2` | `float \| null` | ❌ No | `350.00` |
+| `valor_unit_terreno` | `float \| null` | ❌ No | `24500.00` |
+| `area_construccion_m2` | `float \| null` | ❌ No | `210.00` |
+| `valor_unit_construccion` | `float \| null` | ❌ No | `85400.00` |
+| `area_comercio_m2` | `float \| null` | ❌ No | `45.50` |
+| `valor_unit_comercio` | `float \| null` | ❌ No | `95000.00` |
+
+> 💡 **Campos calculados automáticamente por PostgreSQL (NO enviar):**
+> `valor_terreno`, `valor_construccion`, `valor_comercio`, `valor_catastral_total` — Se calculan con `GENERATED ALWAYS AS (...) STORED`.
+> `superficie_gis_m2`, `perimetro_gis_m`, `utm_norte`, `utm_este` — Calculados por Triggers PostGIS.
+> `codigo_catastral`, `expediente_numero` — Generados por Triggers.
+
+#### Geometría GIS (Polígono del terreno)
+
+| Campo | Tipo | Requerido | Ejemplo |
+|:--|:--|:--|:--|
+| `geom` | `GeoJSON Polygon` | ✅ Sí | Ver abajo |
+
+```json
+{
+  "type": "Polygon",
+  "coordinates": [[
+    [-72.2450, 7.7230],
+    [-72.2455, 7.7230],
+    [-72.2455, 7.7235],
+    [-72.2450, 7.7230]
+  ]]
+}
+```
+
+#### Recibo / Fiscal
+
+| Campo | Tipo | Requerido | Ejemplo |
+|:--|:--|:--|:--|
+| `fecha_emision` | `date \| null` | ❌ No | `"2026-09-18"` |
+| `fecha_recibo` | `date \| null` | ❌ No | `"2026-09-18"` |
+| `numero_recibo` | `string \| null` | ❌ No | `"HACIENDA-2658"` |
+
+**Respuesta:** `201 Created` → `InmuebleOut` (incluye `id`, `codigo_catastral` generado, campos calculados).
+
+---
+
+### Hitos Prediales — `POST /api/v1/inmuebles/{inmueble_id}/hitos`
+
+Registra un vértice GPS capturado por el teléfono del inspector. Se ejecuta en el **Paso 5**.
+
+| Campo | Tipo | Requerido | Ejemplo |
+|:--|:--|:--|:--|
+| `indice_vertice` | `int` (≥ 0) | ✅ Sí | `1` |
+| `lat` | `float` (-90 a 90) | ✅ Sí | `7.7230` |
+| `lon` | `float` (-180 a 180) | ✅ Sí | `-72.2450` |
+| `descripcion` | `string \| null` | ❌ No | `"Vértice Nor-Este"` |
+| `foto_url` | `string \| null` | ❌ No | `"https://..."` |
+
+**Respuesta:** `201 Created` → `HitoPredialOut` (incluye coordenadas UTM calculadas por PostGIS).
+
+---
+
+### Fotos del Inmueble — `POST /api/v1/inmuebles/{inmueble_id}/fotos`
+
+Registra una foto de la fachada. Se ejecuta en el **Paso 5**.
+
+| Campo | Tipo | Requerido | Ejemplo |
+|:--|:--|:--|:--|
+| `url` | `string` | ✅ Sí | `"https://storage.supabase.co/..."` |
+| `descripcion` | `string \| null` | ❌ No | `"Fachada Frontal"` |
+
+**Respuesta:** `201 Created` → `FotoInmuebleOut`.
+
+---
+
+### Endpoints de Consulta (Lectura)
+
+Estos endpoints se usan para buscar propietarios existentes, listar inmuebles previos y obtener la configuración del sistema.
+
+| Acción | Método | Endpoint | Uso en la App |
+|:--|:--|:--|:--|
+| Buscar propietarios | `GET` | `/api/v1/propietarios?q=pérez` | Autocompletar al escribir cédula |
+| Obtener propietario | `GET` | `/api/v1/propietarios/{id}` | Ver detalle del dueño |
+| Listar inmuebles | `GET` | `/api/v1/inmuebles?pagina=1` | Historial de registros |
+| Obtener inmueble | `GET` | `/api/v1/inmuebles/{id}` | Ver ficha completa |
+| Listar hitos | `GET` | `/api/v1/inmuebles/{id}/hitos` | Ver vértices GPS guardados |
+| Listar fotos | `GET` | `/api/v1/inmuebles/{id}/fotos` | Ver fotos del expediente |
+| Config catastral | `GET` | `/api/v1/configuracion/catastral` | Obtener valores m² vigentes |
+| Perfil usuario | `GET` | `/api/v1/usuarios/me` | Mostrar nombre e info del inspector |
+| Descargar PDF | `GET` | `/api/v1/inmuebles/{id}/cedula` | Descargar cédula catastral (binario PDF) |
+
+---
+
+### Tabla Resumen — Endpoints que Usa la App Móvil
+
+| # | Paso | Método | Endpoint | Descripción |
+|:--|:--|:--|:--|:--|
+| 1 | Auth | — | `supabase.auth.signInWithPassword()` | Login |
+| 2 | Auth | — | `supabase.auth.signUp()` | Crear cuenta |
+| 3 | 1 | `POST` | `/api/v1/propietarios` | Crear propietario |
+| 4 | 1 | `GET` | `/api/v1/propietarios?q=...` | Buscar propietario existente |
+| 5 | 6 | `POST` | `/api/v1/inmuebles` | Crear inmueble (payload completo) |
+| 6 | 5 | `POST` | `/api/v1/inmuebles/{id}/hitos` | Registrar vértice GPS |
+| 7 | 5 | `POST` | `/api/v1/inmuebles/{id}/fotos` | Subir foto de fachada |
+| 8 | — | `GET` | `/api/v1/usuarios/me` | Perfil del inspector |
+| 9 | — | `GET` | `/api/v1/configuracion/catastral` | Valores m² oficiales |
+| 10 | — | `GET` | `/api/v1/inmuebles/{id}/cedula` | Descargar PDF de cédula |
+
+---
+
+## 🔐 Seguridad — Flujo de Autenticación
+
+```
+[App Móvil]                      [Supabase Auth]               [Backend Render]
+    │                                   │                              │
+    │── signInWithPassword() ──────────▶│                              │
+    │◀── access_token (JWT ES256) ──────│                              │
+    │                                   │                              │
+    │── GET /api/v1/inmuebles ─────────────────────────────────────────▶│
+    │   Header: Authorization: Bearer <token>                          │
+    │                                   │                              │
+    │                                   │◀── Valida firma JWT (ES256) ─│
+    │◀── 200 OK { resultados: [...] } ─────────────────────────────────│
+```
+
+1. La app se autentica **directamente** con Supabase (nunca envía la contraseña al backend).
+2. Supabase devuelve un `access_token` (JWT firmado con ES256).
+3. La app guarda ese token en `expo-secure-store`.
+4. Todas las peticiones a la API de Render incluyen el header `Authorization: Bearer <token>`.
+5. El backend valida la firma del JWT sin contactar a Supabase (stateless).
+
+---
+
+## ⚙️ Configuración de `app.json` (Permisos)
+
+```json
+{
+  "expo": {
+    "name": "SRCM Mobile",
+    "slug": "srcm-mobile",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "plugins": [
+      [
+        "expo-location",
+        {
+          "locationAlwaysAndWhenInUsePermission": "SRCM necesita acceso a tu ubicación GPS para registrar las coordenadas del terreno."
+        }
+      ],
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "SRCM necesita acceso a tu galería para adjuntar fotos de fachadas.",
+          "cameraPermission": "SRCM necesita acceso a tu cámara para fotografiar inmuebles."
+        }
+      ]
+    ],
+    "android": {
+      "permissions": [
+        "ACCESS_FINE_LOCATION",
+        "ACCESS_COARSE_LOCATION",
+        "CAMERA"
+      ]
+    }
+  }
+}
+```
+
+---
+
+*Documentación técnica completa para el desarrollo de SRCM Mobile v1.0 — Alcaldía del Municipio Torbes, Táchira, Venezuela.*
