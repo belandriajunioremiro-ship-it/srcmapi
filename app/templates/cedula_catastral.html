@@ -454,7 +454,7 @@
 
 <!-- FECHA DE EMISIÓN -->
 <div class="cert-fecha">
-    Dado, firmado y sellado en San Josecito, Municipio Torbes, Estado Táchira, a los {{ d.fecha_emision.strftime("%d") }} días del mes de {{ d.fecha_emision.strftime("%B") }} de {{ d.fecha_emision.strftime("%Y") }}.
+    Dado, firmado y sellado en San Josecito, Municipio Torbes, Estado Táchira, {% if d.fecha_emision %}a los {{ d.fecha_emision.strftime("%d") }} días del mes de {{ d.fecha_emision.strftime("%B") }} de {{ d.fecha_emision.strftime("%Y") }}{% else %}a los ______ días del mes de ______________ de __________{% endif %}.
 </div>
 
 <!-- FIRMAS -->

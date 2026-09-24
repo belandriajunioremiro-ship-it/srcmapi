@@ -1,7 +1,7 @@
 import logging
 
 from fastapi import FastAPI, HTTPException, status
-from fastapi.responses import HTMLResponse
+from fastapi.responses import HTMLResponse, Response
 from fastapi.staticfiles import StaticFiles
 import os
 from fastapi.exception_handlers import http_exception_handler
@@ -9,6 +9,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from app.api_router import api_router
 from app.core.config import settings
+from app.services.cedula_service import generar_pdf_formato_vacio
 
 logging.basicConfig(
     level=logging.INFO if not settings.DEBUG else logging.DEBUG,
@@ -179,6 +180,20 @@ def raiz():
                         </div>
                     </div>
 
+                    <!-- Formato Cédula Catastral -->
+                    <div class="py-12 flex flex-col md:flex-row items-center justify-between gap-8 mb-20 border-t border-slate-100">
+                        <div class="text-center md:text-left max-w-3xl">
+                            <h3 class="text-3xl font-extrabold text-slate-900 mb-3 tracking-tight">Formato de Cédula Catastral</h3>
+                            <p class="text-slate-600 text-lg mb-0 font-medium leading-relaxed">Descarga el formato oficial de la Cédula Catastral en PDF, completamente en blanco (sin datos de inmueble ni propietario), listo para impresión o llenado manual.</p>
+                        </div>
+                        <div class="flex-shrink-0 mt-4 md:mt-0">
+                            <a href="/cedula-formato-vacio" class="inline-flex items-center justify-center gap-3 px-10 py-4 bg-white hover:bg-slate-50 text-blue-600 border-2 border-blue-600 text-lg font-bold rounded-xl transition-all duration-200 hover:-translate-y-1 shadow-md hover:shadow-lg shadow-blue-600/10">
+                                <i class="fa-solid fa-file-pdf text-xl"></i>
+                                Generar Cédula Catastral sin datos
+                            </a>
+                        </div>
+                    </div>
+
                     <!-- Stack Tecnológico -->
                     <div class="pt-16 pb-16 text-center border-t border-slate-100 flex justify-center">
                         <img src="/static/logos/bannerabajo.jpg" alt="Stack Tecnológico" class="w-full max-w-[1400px] h-auto object-contain">
@@ -204,3 +219,16 @@ def raiz():
 def salud():
     """Endpoint simple de health-check (útil para Render/Railway/Fly.io)."""
     return {"status": "ok"}
+
+
+@app.get("/cedula-formato-vacio", tags=["Salud"])
+def cedula_formato_vacio():
+    """Genera y descarga el PDF del formato de Cédula Catastral SIN datos (en blanco)."""
+    pdf_bytes = generar_pdf_formato_vacio()
+    return Response(
+        content=pdf_bytes,
+        media_type="application/pdf",
+        headers={
+            "Content-Disposition": 'attachment; filename="Formato_Cedula_Catastral_SIN_DATOS.pdf"'
+        },
+    )
