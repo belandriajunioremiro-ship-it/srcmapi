@@ -74,17 +74,17 @@ srcm/
 Se configuraron las siguientes variables de entorno:
 
 ```env
-# Base de datos Supabase
-DATABASE_URL=postgresql+psycopg2://postgres.jdacflrxsegctvrjlrqe:srcm-pruebas@aws-0-sa-east-1.pooler.supabase.com:5432/postgres
+# Base de datos Supabase (valores reales eliminados por seguridad)
+DATABASE_URL=postgresql+psycopg2://postgres.jdacflrxsegctvrjlrqe:<DB_PASSWORD>@aws-0-sa-east-1.pooler.supabase.com:5432/postgres
 
-# Supabase Auth
+# Supabase Auth (valores reales eliminados por seguridad)
 SUPABASE_URL=https://jdacflrxsegctvrjlrqe.supabase.co
-SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpkYWNmbHJ4c2VnY3R2cmpscnFlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODk2NTEwMjAsImV4cCI6MjEwNTIyNzAyMH0.5gmSvCHWdHkOMFIEqGPN8_QJVRznYZSaIbX0A3FiYVA
-SUPABASE_SERVICE_ROLE_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpkYWNmbHJ4c2VnY3R2cmpscnFlIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc4OTY1MTAyMCwiZXhwIjoyMTA1MjI3MDIwfQ.W5-UIRwVwnPS2HW8emRDVK2nQYk4ZZ446Zn-1fUkuPY
-SUPABASE_JWT_SECRET=ryjYNlH6bUx/DknwHqWHV4CC6CK+dY2f3c/xyhb8OD0xjpYnfZnvhM8yexYFmfiEtEqCZ7A0WCM5rgNFPzthBA==
+SUPABASE_ANON_KEY=<SUPABASE_ANON_KEY>
+SUPABASE_SERVICE_ROLE_KEY=<SUPABASE_SERVICE_ROLE_KEY>
+SUPABASE_JWT_SECRET=<SUPABASE_JWT_SECRET>
 
-# Seguridad API
-SECRET_KEY=Y1C9n51oii817c7pOBp7UQ55zimdHkk2Sl989XpjqjXpow6Y6ta9jHiKFTAM4i2nJgqFINaG1UvyudALQM9rNQ
+# Seguridad API (valor real eliminado por seguridad)
+SECRET_KEY=<SECRET_KEY>
 
 # Configuración aplicación
 APP_NAME=SRCM API - Pruebas E2E
@@ -147,7 +147,7 @@ SRID_UTM=2201
 
 **Credenciales utilizadas:**
 - Email: belandriajunioremiro@gmail.com
-- Contraseña: 20394453
+- Contraseña: `<REDACTADA>` (ver archivo `.env` o variable de entorno)
 
 **Proceso:**
 ```python
@@ -159,7 +159,7 @@ headers = {
 }
 data = {
     "email": "belandriajunioremiro@gmail.com",
-    "password": "20394453"
+    "password": "<REDACTADA>"
 }
 ```
 

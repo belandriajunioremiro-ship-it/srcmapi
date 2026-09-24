@@ -1,14 +1,14 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
 <meta charset="utf-8">
-<title>CÃ©dula Catastral - Municipio Torbes</title>
+<title>Cédula Catastral - Municipio Torbes</title>
 <style>
     @page {
         size: Letter;
         margin: 0.5cm 0.8cm;
         @bottom-center {
-            content: "PÃ¡gina " counter(page) " de " counter(pages);
+            content: "Página " counter(page) " de " counter(pages);
             font-size: 7px;
             color: #888;
         }
@@ -385,39 +385,39 @@
 </div>
 
 <!-- ============================================================ -->
-<!-- PÃGINA 1: CERTIFICACIÃ“N FORMAL                               -->
+<!-- PÁGINA 1: CERTIFICACIÓN FORMAL                               -->
 <!-- ============================================================ -->
 <div class="content">
 
 <!-- ENCABEZADO -->
 <div class="header">
-    <img class="emblem" src="{{ logos }}/escudotachira.png" alt="TÃ¡chira">
+    <img class="emblem" src="{{ logos }}/escudotachira.png" alt="Táchira">
     <div class="header-center">
-        <p class="hc-1">RepÃºblica Bolivariana de Venezuela</p>
+        <p class="hc-1">República Bolivariana de Venezuela</p>
         <p class="hc-2">Estado {{ d.nombre_estado }}</p>
-        <p class="hc-3">ALCALDÃA BOLIVARIANA DEL MUNICIPIO {{ d.nombre_municipio|upper }}</p>
+        <p class="hc-3">ALCALDÍA BOLIVARIANA DEL MUNICIPIO {{ d.nombre_municipio|upper }}</p>
         <p class="hc-4">RIF. {{ d.rif_alcaldia }}</p>
-        <p class="hc-5">DIRECCIÃ“N DE URBANISMO Y CATASTRO</p>
+        <p class="hc-5">DIRECCIÓN DE URBANISMO Y CATASTRO</p>
     </div>
     <img class="emblem" src="{{ logos }}/escudotorbes.png" alt="Torbes">
 </div>
 
-<!-- DIRECCIÃ“N Y TELÃ‰FONOS - SIN BORDES -->
+<!-- DIRECCIÓN Y TELÉFONOS - SIN BORDES -->
 <div class="inst-info">
-    DirecciÃ³n: {{ d.direccion_institucional or "Municipio Torbes, San Josecito, VÃ­a al Llano, Troncal 5" }}<br>
-    TelÃ©fonos: 0426/5755511 â€” 0426/1709156 â€” (0276) 517.28.66
+    Dirección: {{ d.direccion_institucional or "Municipio Torbes, San Josecito, Vía al Llano, Troncal 5" }}<br>
+    Teléfonos: 0426/5755511 — 0426/1709156 — (0276) 517.28.66
 </div>
 
-<!-- TÃTULO PRINCIPAL -->
-<div class="cert-title">CÃ©dula Catastral</div>
+<!-- TÍTULO PRINCIPAL -->
+<div class="cert-title">Cédula Catastral</div>
 
-<!-- CUERPO DE LA CERTIFICACIÃ“N -->
+<!-- CUERPO DE LA CERTIFICACIÓN -->
 <div class="cert-body">
-    <p>Quien suscribe, Director(a) de Urbanismo y Catastro de la AlcaldÃ­a Bolivariana del Municipio Torbes, en uso de sus atribuciones legales y ordenanzas vigentes, expide la presente <strong>CÃ©dula Catastral</strong> y hace constar por medio de este documento oficial que el inmueble, cuyos datos tÃ©cnicos, linderos y valoraciones se detallan en la pÃ¡gina siguiente, se encuentra debidamente empadronado e inscrito en el Archivo Catastral de este Municipio a favor del ciudadano(a) <strong>{{ d.propietario_nombre or "â€”" }}</strong>, portador(a) del documento de identidad <strong>{{ d.cedula_rif or "â€”" }}</strong>.</p>
+    <p>Quien suscribe, Director(a) de Urbanismo y Catastro de la Alcaldía Bolivariana del Municipio Torbes, en uso de sus atribuciones legales y ordenanzas vigentes, expide la presente <strong>Cédula Catastral</strong> y hace constar por medio de este documento oficial que el inmueble, cuyos datos técnicos, linderos y valoraciones se detallan en la página siguiente, se encuentra debidamente empadronado e inscrito en el Archivo Catastral de este Municipio a favor del ciudadano(a) <strong>{{ d.propietario_nombre or "—" }}</strong>, portador(a) del documento de identidad <strong>{{ d.cedula_rif or "—" }}</strong>.</p>
 
-    <p>La DivisiÃ³n de Catastro de la AlcaldÃ­a del Municipio Torbes y en concordancia con lo indicado en la Ley de GeografÃ­a, CartografÃ­a y Catastro Nacional, certifica que el ciudadano(a) <strong>{{ d.propietario_nombre or "â€”" }}</strong>, con CÃ©dula de Identidad C.I/RIF: <strong>{{ d.cedula_rif or "â€”" }}</strong>, posee un inmueble ubicado en: <strong>{{ d.direccion or "â€”" }}</strong>. El mismo se encuentra inserto en esta DivisiÃ³n de Catastro.</p>
+    <p>La División de Catastro de la Alcaldía del Municipio Torbes y en concordancia con lo indicado en la Ley de Geografía, Cartografía y Catastro Nacional, certifica que el ciudadano(a) <strong>{{ d.propietario_nombre or "—" }}</strong>, con Cédula de Identidad C.I/RIF: <strong>{{ d.cedula_rif or "—" }}</strong>, posee un inmueble ubicado en: <strong>{{ d.direccion or "—" }}</strong>. El mismo se encuentra inserto en esta División de Catastro.</p>
 
-    <p>Con un <strong>ÃREA DE TERRENO: {{ d.area_terreno_m2|fmt_area }} MÂ²</strong>. <strong>ÃREA DE CONSTRUCCIÃ“N (USO {{ (d.descripcion_uso or "RESIDENCIAL")|upper }}): {{ d.area_construccion_m2|fmt_area }} MÂ²</strong>. <strong>ÃREA DE COMERCIO: {{ d.area_comercio_m2|fmt_area }} MÂ²</strong>. Lo cual arroja un <strong>VALOR CATASTRAL TOTAL DE: Bs {{ d.valor_catastral_total|fmt_money }}</strong>.</p>
+    <p>Con un <strong>ÁREA DE TERRENO: {{ d.area_terreno_m2|fmt_area }} M²</strong>. <strong>ÁREA DE CONSTRUCCIÓN (USO {{ (d.descripcion_uso or "RESIDENCIAL")|upper }}): {{ d.area_construccion_m2|fmt_area }} M²</strong>. <strong>ÁREA DE COMERCIO: {{ d.area_comercio_m2|fmt_area }} M²</strong>. Lo cual arroja un <strong>VALOR CATASTRAL TOTAL DE: Bs {{ d.valor_catastral_total|fmt_money }}</strong>.</p>
 
     <p>El cual se encuentra en las siguientes <strong>MEDIDAS Y LINDEROS</strong>:</p>
 </div>
@@ -427,77 +427,77 @@
     <div class="cert-linderos-title">Medidas y Linderos del Inmueble</div>
     <div class="cert-lin-row">
         <span class="cert-lin-dir">Norte:</span>
-        <span class="cert-lin-desc">{{ d.lindero_norte_doc or "â€”" }}</span>
+        <span class="cert-lin-desc">{{ d.lindero_norte_doc or "—" }}</span>
         <span class="cert-lin-mts">{{ d.lindero_norte_mts|fmt_mts }} mts</span>
     </div>
     <div class="cert-lin-row">
         <span class="cert-lin-dir">Sur:</span>
-        <span class="cert-lin-desc">{{ d.lindero_sur_doc or "â€”" }}</span>
+        <span class="cert-lin-desc">{{ d.lindero_sur_doc or "—" }}</span>
         <span class="cert-lin-mts">{{ d.lindero_sur_mts|fmt_mts }} mts</span>
     </div>
     <div class="cert-lin-row">
         <span class="cert-lin-dir">Este:</span>
-        <span class="cert-lin-desc">{{ d.lindero_este_doc or "â€”" }}</span>
+        <span class="cert-lin-desc">{{ d.lindero_este_doc or "—" }}</span>
         <span class="cert-lin-mts">{{ d.lindero_este_mts|fmt_mts }} mts</span>
     </div>
     <div class="cert-lin-row">
         <span class="cert-lin-dir">Oeste:</span>
-        <span class="cert-lin-desc">{{ d.lindero_oeste_doc or "â€”" }}</span>
+        <span class="cert-lin-desc">{{ d.lindero_oeste_doc or "—" }}</span>
         <span class="cert-lin-mts">{{ d.lindero_oeste_mts|fmt_mts }} mts</span>
     </div>
 </div>
 
 <!-- DISCLAIMER LEGAL -->
 <div class="cert-disclaimer">
-    <strong>DISPOSICIÃ“N LEGAL:</strong> La AlcaldÃ­a del Municipio Torbes hace constar que esta CertificaciÃ³n <strong>NO legaliza ningÃºn tÃ­tulo de propiedad</strong> sobre el inmueble y la misma se estÃ¡ adecuando a la CartografÃ­a, GeografÃ­a y Catastro Nacional a las exigencias requeridas. Este documento <strong>NO AUTORIZA permiso para construir, ni para Variables Urbanas. No acredita propiedad.</strong> Un (01) aÃ±o de vigencia desde la fecha de expediciÃ³n, cumpliendo con la Ordenanza sobre Catastro vigente del Municipio Torbes.
+    <strong>DISPOSICIÓN LEGAL:</strong> La Alcaldía del Municipio Torbes hace constar que esta Certificación <strong>NO legaliza ningún título de propiedad</strong> sobre el inmueble y la misma se está adecuando a la Cartografía, Geografía y Catastro Nacional a las exigencias requeridas. Este documento <strong>NO AUTORIZA permiso para construir, ni para Variables Urbanas. No acredita propiedad.</strong> Un (01) año de vigencia desde la fecha de expedición, cumpliendo con la Ordenanza sobre Catastro vigente del Municipio Torbes.
 </div>
 
-<!-- FECHA DE EMISIÃ“N -->
+<!-- FECHA DE EMISIÓN -->
 <div class="cert-fecha">
-    Dado, firmado y sellado en San Josecito, Municipio Torbes, Estado TÃ¡chira, a los {{ d.fecha_emision.strftime("%d") }} dÃ­as del mes de {{ d.fecha_emision.strftime("%B") }} de {{ d.fecha_emision.strftime("%Y") }}.
+    Dado, firmado y sellado en San Josecito, Municipio Torbes, Estado Táchira, a los {{ d.fecha_emision.strftime("%d") }} días del mes de {{ d.fecha_emision.strftime("%B") }} de {{ d.fecha_emision.strftime("%Y") }}.
 </div>
 
 <!-- FIRMAS -->
 <div class="sigs">
     <div class="sig">
         <div class="sig-line">
-            <div class="sig-name">{{ d.nombre_maxima_autoridad or "â€”" }}</div>
-            <div class="sig-role">{{ d.cargo_maxima_autoridad or "â€”" }}</div>
-            <div class="sig-ref">{{ d.texto_acta_maxima_autoridad or "â€”" }}</div>
+            <div class="sig-name">{{ d.nombre_maxima_autoridad or "—" }}</div>
+            <div class="sig-role">{{ d.cargo_maxima_autoridad or "—" }}</div>
+            <div class="sig-ref">{{ d.texto_acta_maxima_autoridad or "—" }}</div>
         </div>
     </div>
     <div class="sig">
         <div class="sig-line">
-            <div class="sig-name">{{ d.nombre_director_catastro or "â€”" }}</div>
-            <div class="sig-role">{{ d.cargo_director_catastro or "â€”" }}</div>
-            <div class="sig-role">AlcaldÃ­a del Municipio Torbes, Estado TÃ¡chira</div>
-            <div class="sig-ref">{{ d.texto_resolucion_director or "â€”" }}</div>
+            <div class="sig-name">{{ d.nombre_director_catastro or "—" }}</div>
+            <div class="sig-role">{{ d.cargo_director_catastro or "—" }}</div>
+            <div class="sig-role">Alcaldía del Municipio Torbes, Estado Táchira</div>
+            <div class="sig-ref">{{ d.texto_resolucion_director or "—" }}</div>
         </div>
     </div>
 </div>
 
-<!-- PIE PÃGINA 1 - MINIMAL -->
-<div class="foot-bar">DirecciÃ³n: {{ d.direccion_institucional or "Municipio Torbes, San Josecito, VÃ­a al Llano, Troncal 5" }} â€” TelÃ©fonos: 0426/5755511 â€” 0426/1709156 â€” (0276) 517.28.66</div>
+<!-- PIE PÁGINA 1 - MINIMAL -->
+<div class="foot-bar">Dirección: {{ d.direccion_institucional or "Municipio Torbes, San Josecito, Vía al Llano, Troncal 5" }} — Teléfonos: 0426/5755511 — 0426/1709156 — (0276) 517.28.66</div>
 
 
 </div>
 
 <!-- ============================================================ -->
-<!-- PÃGINA 2: TABLAS TÃ‰CNICAS                                    -->
+<!-- PÁGINA 2: TABLAS TÉCNICAS                                    -->
 <!-- ============================================================ -->
 <div class="page-break"></div>
 
 <div class="content">
 
-<!-- ENCABEZADO PÃGINA 2 -->
+<!-- ENCABEZADO PÁGINA 2 -->
 <div class="header">
-    <img class="emblem" src="{{ logos }}/escudotachira.png" alt="TÃ¡chira">
+    <img class="emblem" src="{{ logos }}/escudotachira.png" alt="Táchira">
     <div class="header-center">
-        <p class="hc-1">RepÃºblica Bolivariana de Venezuela</p>
+        <p class="hc-1">República Bolivariana de Venezuela</p>
         <p class="hc-2">Estado {{ d.nombre_estado }}</p>
-        <p class="hc-3">ALCALDÃA BOLIVARIANA DEL MUNICIPIO {{ d.nombre_municipio|upper }}</p>
+        <p class="hc-3">ALCALDÍA BOLIVARIANA DEL MUNICIPIO {{ d.nombre_municipio|upper }}</p>
         <p class="hc-4">RIF. {{ d.rif_alcaldia }}</p>
-        <p class="hc-5">DIRECCIÃ“N DE URBANISMO Y CATASTRO</p>
+        <p class="hc-5">DIRECCIÓN DE URBANISMO Y CATASTRO</p>
     </div>
     <img class="emblem" src="{{ logos }}/escudotorbes.png" alt="Torbes">
 </div>
@@ -505,12 +505,12 @@
 <!-- BLOQUE SUPERIOR -->
 <div class="upper-block">
     <div class="doc-type">
-        <div class="dt1">CÃ‰DULA CATASTRAL / EMPADRONAMIENTO</div>
-        <div class="dt2">TERRENO Y CONSTRUCCIÃ“N</div>
-        <div style="margin-top:4px"><span class="vigencia-stamp">VIGENTE HASTA {{ d.vigente_hasta.strftime("%d/%m/%Y") if d.vigente_hasta else "â€”" }}</span></div>
+        <div class="dt1">CÉDULA CATASTRAL / EMPADRONAMIENTO</div>
+        <div class="dt2">TERRENO Y CONSTRUCCIÓN</div>
+        <div style="margin-top:4px"><span class="vigencia-stamp">VIGENTE HASTA {{ d.vigente_hasta.strftime("%d/%m/%Y") if d.vigente_hasta else "—" }}</span></div>
     </div>
     <table class="code-box">
-        <tr><th colspan="9" class="cb-title">CÃ“DIGO CATASTRAL</th></tr>
+        <tr><th colspan="9" class="cb-title">CÓDIGO CATASTRAL</th></tr>
         <tr>
             <th>E</th><th>M</th><th>P</th><th>S</th><th>Ma</th><th>Pa</th><th>SP</th><th>N</th><th>U</th>
         </tr>
@@ -519,49 +519,49 @@
             <td>{{ d.ma }}</td><td>{{ d.pa }}</td><td>{{ d.sp }}</td><td>{{ d.n }}</td><td>{{ d.u }}</td>
         </tr>
         <tr>
-            <td colspan="5" class="cb-exp">Expediente NÂ°</td>
-            <td colspan="4" class="cb-exp">{{ d.expediente_numero or "â€”" }}</td>
+            <td colspan="5" class="cb-exp">Expediente N°</td>
+            <td colspan="4" class="cb-exp">{{ d.expediente_numero or "—" }}</td>
         </tr>
     </table>
 </div>
 
 <!-- FRANJA RECIBO -->
 <div class="receipt-bar">
-    <span>FECHA DE RECIBO: {{ d.fecha_recibo.strftime("%d/%m/%Y") if d.fecha_recibo else "â€”" }}</span>
-    <span>NÂ° DE RECIBO: {{ d.numero_recibo or "â€”" }}</span>
-    <span>FECHA DE EMISIÃ“N: {{ d.fecha_emision.strftime("%d/%m/%Y") if d.fecha_emision else "â€”" }}</span>
+    <span>FECHA DE RECIBO: {{ d.fecha_recibo.strftime("%d/%m/%Y") if d.fecha_recibo else "—" }}</span>
+    <span>N° DE RECIBO: {{ d.numero_recibo or "—" }}</span>
+    <span>FECHA DE EMISIÓN: {{ d.fecha_emision.strftime("%d/%m/%Y") if d.fecha_emision else "—" }}</span>
 </div>
 
 <!-- DATOS PROPIETARIO -->
 <table class="f">
     <tr><td class="sh" colspan="4">DATOS DEL PROPIETARIO/ADMINISTRADOR</td></tr>
     <tr>
-        <td colspan="2" style="width:65%"><span class="fl">Nombre y Apellido:</span> <span class="fv">{{ d.propietario_nombre or "â€”" }}</span></td>
-        <td colspan="2"><span class="fl">C.I/RIF:</span> <span class="fv">{{ d.cedula_rif or "â€”" }}</span></td>
+        <td colspan="2" style="width:65%"><span class="fl">Nombre y Apellido:</span> <span class="fv">{{ d.propietario_nombre or "—" }}</span></td>
+        <td colspan="2"><span class="fl">C.I/RIF:</span> <span class="fv">{{ d.cedula_rif or "—" }}</span></td>
     </tr>
     <tr>
-        <td colspan="4"><span class="fl">DirecciÃ³n del Inmueble:</span> <span class="fv">{{ d.direccion }}</span></td>
+        <td colspan="4"><span class="fl">Dirección del Inmueble:</span> <span class="fv">{{ d.direccion }}</span></td>
     </tr>
     <tr>
-        <td><span class="fl">Documento:</span> {{ d.documento_tipo or "â€”" }}</td>
-        <td><span class="fl">NÃºmero:</span> {{ d.documento_numero or "â€”" }}</td>
-        <td><span class="fl">Tomo:</span> {{ d.documento_tomo or "â€”" }}</td>
-        <td><span class="fl">Fecha:</span> {{ d.documento_fecha.strftime("%d/%m/%Y") if d.documento_fecha else "â€”" }}</td>
+        <td><span class="fl">Documento:</span> {{ d.documento_tipo or "—" }}</td>
+        <td><span class="fl">Número:</span> {{ d.documento_numero or "—" }}</td>
+        <td><span class="fl">Tomo:</span> {{ d.documento_tomo or "—" }}</td>
+        <td><span class="fl">Fecha:</span> {{ d.documento_fecha.strftime("%d/%m/%Y") if d.documento_fecha else "—" }}</td>
     </tr>
     <tr>
-        <td><span class="fl">Tenencia:</span> {{ d.tenencia|upper if d.tenencia else "â€”" }}</td>
-        <td colspan="2"><span class="fl">Folio:</span> {{ d.documento_folio or "â€”" }}</td>
-        <td><span class="fl">Protocolo:</span> {{ d.documento_protocolo or "â€”" }}</td>
+        <td><span class="fl">Tenencia:</span> {{ d.tenencia|upper if d.tenencia else "—" }}</td>
+        <td colspan="2"><span class="fl">Folio:</span> {{ d.documento_folio or "—" }}</td>
+        <td><span class="fl">Protocolo:</span> {{ d.documento_protocolo or "—" }}</td>
     </tr>
 </table>
 
 <!-- LINDEROS DOCUMENTO -->
 <table class="f">
-    <tr><td class="sh" colspan="2">LINDEROS ACTUALES (SEGÃšN DOCUMENTO)</td></tr>
-    <tr><td style="width:80%"><span class="fl">Norte:</span> {{ d.lindero_norte_doc or "â€”" }}</td><td style="text-align:right">Mts: {{ d.lindero_norte_mts or "â€”" }}</td></tr>
-    <tr><td><span class="fl">Sur:</span> {{ d.lindero_sur_doc or "â€”" }}</td><td style="text-align:right">Mts: {{ d.lindero_sur_mts or "â€”" }}</td></tr>
-    <tr><td><span class="fl">Este:</span> {{ d.lindero_este_doc or "â€”" }}</td><td style="text-align:right">Mts: {{ d.lindero_este_mts or "â€”" }}</td></tr>
-    <tr><td><span class="fl">Oeste:</span> {{ d.lindero_oeste_doc or "â€”" }}</td><td style="text-align:right">Mts: {{ d.lindero_oeste_mts or "â€”" }}</td></tr>
+    <tr><td class="sh" colspan="2">LINDEROS ACTUALES (SEGÚN DOCUMENTO)</td></tr>
+    <tr><td style="width:80%"><span class="fl">Norte:</span> {{ d.lindero_norte_doc or "—" }}</td><td style="text-align:right">Mts: {{ d.lindero_norte_mts or "—" }}</td></tr>
+    <tr><td><span class="fl">Sur:</span> {{ d.lindero_sur_doc or "—" }}</td><td style="text-align:right">Mts: {{ d.lindero_sur_mts or "—" }}</td></tr>
+    <tr><td><span class="fl">Este:</span> {{ d.lindero_este_doc or "—" }}</td><td style="text-align:right">Mts: {{ d.lindero_este_mts or "—" }}</td></tr>
+    <tr><td><span class="fl">Oeste:</span> {{ d.lindero_oeste_doc or "—" }}</td><td style="text-align:right">Mts: {{ d.lindero_oeste_mts or "—" }}</td></tr>
 </table>
 
 <!-- FACTIBILIDAD Y VALORES -->
@@ -575,26 +575,26 @@
     </tr>
     <tr>
         <td><span class="fl">Existe Vivienda:</span> {{ "SI" if d.existe_vivienda else "NO" }}</td>
-        <td colspan="2"><span class="fl">Tipo:</span> {{ d.tipo_vivienda or "â€”" }}</td>
-        <td><span class="fl">Uso:</span> {{ d.descripcion_uso or "â€”" }}</td>
+        <td colspan="2"><span class="fl">Tipo:</span> {{ d.tipo_vivienda or "—" }}</td>
+        <td><span class="fl">Uso:</span> {{ d.descripcion_uso or "—" }}</td>
     </tr>
     <tr>
-        <td><span class="fl">NÂ° de Plantas:</span> {{ d.numero_plantas or "â€”" }}</td>
-        <td colspan="3"><span class="fl">Uso segÃºn ZonificaciÃ³n:</span> {{ d.uso_segun_zonificacion or "â€”" }}</td>
+        <td><span class="fl">N° de Plantas:</span> {{ d.numero_plantas or "—" }}</td>
+        <td colspan="3"><span class="fl">Uso según Zonificación:</span> {{ d.uso_segun_zonificacion or "—" }}</td>
     </tr>
     <tr>
-        <td><span class="fl">Ãrea de Terreno (MÂ²):</span> {{ d.area_terreno_m2|fmt_area }}</td>
-        <td><span class="fl">Valor Unit (Bs/MÂ²):</span> {{ d.valor_unit_terreno|fmt_money }}</td>
+        <td><span class="fl">Área de Terreno (M²):</span> {{ d.area_terreno_m2|fmt_area }}</td>
+        <td><span class="fl">Valor Unit (Bs/M²):</span> {{ d.valor_unit_terreno|fmt_money }}</td>
         <td colspan="2" class="val-total"><span class="fl">VALOR DEL TERRENO:</span><br>Bs {{ d.valor_terreno|fmt_money }}</td>
     </tr>
     <tr>
-        <td><span class="fl">Ãrea de ConstrucciÃ³n (MÂ²):</span> {{ d.area_construccion_m2|fmt_area }}</td>
-        <td><span class="fl">Valor Unit (Bs/MÂ²):</span> {{ d.valor_unit_construccion|fmt_money }}</td>
-        <td colspan="2" class="val-total"><span class="fl">VALOR DE LA<br>CONSTRUCCIÃ“N:</span> Bs {{ d.valor_construccion|fmt_money }}</td>
+        <td><span class="fl">Área de Construcción (M²):</span> {{ d.area_construccion_m2|fmt_area }}</td>
+        <td><span class="fl">Valor Unit (Bs/M²):</span> {{ d.valor_unit_construccion|fmt_money }}</td>
+        <td colspan="2" class="val-total"><span class="fl">VALOR DE LA<br>CONSTRUCCIÓN:</span> Bs {{ d.valor_construccion|fmt_money }}</td>
     </tr>
     <tr>
-        <td><span class="fl">Ãrea de Comercio (MÂ²):</span> {{ d.area_comercio_m2|fmt_area }}</td>
-        <td><span class="fl">Valor Unit (Bs/MÂ²):</span> {{ d.valor_unit_comercio|fmt_money }}</td>
+        <td><span class="fl">Área de Comercio (M²):</span> {{ d.area_comercio_m2|fmt_area }}</td>
+        <td><span class="fl">Valor Unit (Bs/M²):</span> {{ d.valor_unit_comercio|fmt_money }}</td>
         <td colspan="2" class="val-total"><span class="fl">VALOR DEL COMERCIO:</span><br>Bs {{ d.valor_comercio|fmt_money }}</td>
     </tr>
     <tr>
@@ -602,13 +602,13 @@
     </tr>
 </table>
 
-<!-- LINDEROS TOPOGRAFÃA -->
+<!-- LINDEROS TOPOGRAFÍA -->
 <table class="f">
-    <tr><td class="sh" colspan="2">LINDEROS ACTUALES (SEGÃšN LEVANTAMIENTO TOPOGRÃFICO)</td></tr>
-    <tr><td style="width:80%"><span class="fl">Norte:</span> {{ d.lindero_norte_top or "â€”" }}</td><td style="text-align:right">Mts: {{ d.lindero_norte_top_mts or "â€”" }}</td></tr>
-    <tr><td><span class="fl">Sur:</span> {{ d.lindero_sur_top or "â€”" }}</td><td style="text-align:right">Mts: {{ d.lindero_sur_top_mts or "â€”" }}</td></tr>
-    <tr><td><span class="fl">Este:</span> {{ d.lindero_este_top or "â€”" }}</td><td style="text-align:right">Mts: {{ d.lindero_este_top_mts or "â€”" }}</td></tr>
-    <tr><td><span class="fl">Oeste:</span> {{ d.lindero_oeste_top or "â€”" }}</td><td style="text-align:right">Mts: {{ d.lindero_oeste_top_mts or "â€”" }}</td></tr>
+    <tr><td class="sh" colspan="2">LINDEROS ACTUALES (SEGÚN LEVANTAMIENTO TOPOGRÁFICO)</td></tr>
+    <tr><td style="width:80%"><span class="fl">Norte:</span> {{ d.lindero_norte_top or "—" }}</td><td style="text-align:right">Mts: {{ d.lindero_norte_top_mts or "—" }}</td></tr>
+    <tr><td><span class="fl">Sur:</span> {{ d.lindero_sur_top or "—" }}</td><td style="text-align:right">Mts: {{ d.lindero_sur_top_mts or "—" }}</td></tr>
+    <tr><td><span class="fl">Este:</span> {{ d.lindero_este_top or "—" }}</td><td style="text-align:right">Mts: {{ d.lindero_este_top_mts or "—" }}</td></tr>
+    <tr><td><span class="fl">Oeste:</span> {{ d.lindero_oeste_top or "—" }}</td><td style="text-align:right">Mts: {{ d.lindero_oeste_top_mts or "—" }}</td></tr>
 </table>
 
 <!-- UTM -->
@@ -620,15 +620,15 @@
     </tr>
 </table>
 
-<!-- CARACTERÃSTICAS -->
+<!-- CARACTERÍSTICAS -->
 <table class="f">
-    <tr><td class="sh" colspan="4">CARACTERÃSTICAS DEL INMUEBLE</td></tr>
-    <tr><td colspan="2"><span class="fl">VÃ­a de Acceso:</span> {{ d.via_acceso|capitalize if d.via_acceso else "â€”" }}</td><td colspan="2"><span class="fl">CaracterÃ­stica:</span> {{ d.caracteristica_general|capitalize if d.caracteristica_general else "â€”" }}</td></tr>
-    <tr><td><span class="fl">Estructura del Techo:</span> {{ d.estructura_techo|capitalize if d.estructura_techo else "â€”" }}</td><td><span class="fl">Estructura de Paredes:</span> {{ d.estructura_paredes|capitalize if d.estructura_paredes else "â€”" }}</td><td colspan="2"><span class="fl">Piso:</span> {{ d.piso|capitalize if d.piso else "â€”" }}</td></tr>
+    <tr><td class="sh" colspan="4">CARACTERÍSTICAS DEL INMUEBLE</td></tr>
+    <tr><td colspan="2"><span class="fl">Vía de Acceso:</span> {{ d.via_acceso|capitalize if d.via_acceso else "—" }}</td><td colspan="2"><span class="fl">Característica:</span> {{ d.caracteristica_general|capitalize if d.caracteristica_general else "—" }}</td></tr>
+    <tr><td><span class="fl">Estructura del Techo:</span> {{ d.estructura_techo|capitalize if d.estructura_techo else "—" }}</td><td><span class="fl">Estructura de Paredes:</span> {{ d.estructura_paredes|capitalize if d.estructura_paredes else "—" }}</td><td colspan="2"><span class="fl">Piso:</span> {{ d.piso|capitalize if d.piso else "—" }}</td></tr>
     <tr>
-        <td><span class="fl">Ambientes:</span> {{ d.ambiente_otro or "â€”" }}</td>
-        <td><span class="fl">Dormitorios:</span> {{ d.dormitorios or "â€”" }}</td>
-        <td><span class="fl">BaÃ±os:</span> {{ d.banos or "â€”" }}</td>
+        <td><span class="fl">Ambientes:</span> {{ d.ambiente_otro or "—" }}</td>
+        <td><span class="fl">Dormitorios:</span> {{ d.dormitorios or "—" }}</td>
+        <td><span class="fl">Baños:</span> {{ d.banos or "—" }}</td>
         <td><span class="fl">Sala:</span> {{ "SI" if d.sala else "NO" }} | <span class="fl">Cocina:</span> {{ "SI" if d.cocina else "NO" }}</td>
     </tr>
 </table>
@@ -647,23 +647,23 @@
                 <p>{{ loop.index }}. {{ nota }}</p>
             {% endfor %}
         {% else %}
-            <p>1. CÃ©dula Catastral que se expide a solicitud de la parte interesada para fines legales.</p>
-            <p>2. Los precios por mÂ² del terreno y de la construcciÃ³n estÃ¡n sujetos a cambios.</p>
-            <p>3. Si modifica direcciÃ³n de acuerdo al nuevo ordenamiento municipal.</p>
-            <p>4. Un (01) aÃ±o de vigencia desde la fecha de expediciÃ³n cumpliendo con la ORDENANZA SOBRE CATASTRO.</p>
+            <p>1. Cédula Catastral que se expide a solicitud de la parte interesada para fines legales.</p>
+            <p>2. Los precios por m² del terreno y de la construcción están sujetos a cambios.</p>
+            <p>3. Si modifica dirección de acuerdo al nuevo ordenamiento municipal.</p>
+            <p>4. Un (01) año de vigencia desde la fecha de expedición cumpliendo con la ORDENANZA SOBRE CATASTRO.</p>
             <p>5. NO AUTORIZA permiso para construir, ni para Variables Urbanas. No acredita propiedad.</p>
         {% endif %}
     </div>
     {% if qr_code %}
     <div class="notes-qr">
         <img src="{{ qr_code }}" alt="QR Code">
-        <span>VerificaciÃ³n QR</span>
+        <span>Verificación QR</span>
     </div>
     {% endif %}
 </div>
 
-<!-- PIE PÃGINA 2 -->
-<div class="foot-bar">{{ d.direccion_institucional or "Municipio Torbes, San Josecito, VÃ­a al Llano, Troncal 5" }} â€” TelÃ©fonos: 0426/5755511 â€” 0426/1709156 â€” (0276) 517.28.66</div>
+<!-- PIE PÁGINA 2 -->
+<div class="foot-bar">{{ d.direccion_institucional or "Municipio Torbes, San Josecito, Vía al Llano, Troncal 5" }} — Teléfonos: 0426/5755511 — 0426/1709156 — (0276) 517.28.66</div>
 
 
 </div>
